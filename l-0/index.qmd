@@ -9,6 +9,8 @@ format: pdf
 
 This is a skeleton Quarto document for learning purposes.
 
+---
+
 ## Content
  
 Add your learning notes and content here.
@@ -21,6 +23,8 @@ This is an example of how to add more content to your learning document. You can
 - **Bold text** and *italic text*
 - Code blocks
 - Mathematical equations
+
+---
 
 ## Summary
 
