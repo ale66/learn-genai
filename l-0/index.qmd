@@ -1,6 +1,6 @@
 ---
 title: Learn-GenAI
-author: AP
+author: ale66
 date: today
 format: pdf
 ---
