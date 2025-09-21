@@ -5,12 +5,12 @@ date: today
 format: pdf
 ---
 
-# Introduction
+## Introduction
 
 This is a skeleton Quarto document for learning purposes.
 
 ## Content
-
+ 
 Add your learning notes and content here.
 
 ### Example Section
