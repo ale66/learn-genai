@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="nlp_entropy_files/libs/clipboard/clipboard.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/tabby.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/popper.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="nlp_entropy_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="nlp_entropy_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="nlp_entropy_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="text_as_data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="text_as_data_files/libs/quarto-html/tabby.min.js"></script>
+<script src="text_as_data_files/libs/quarto-html/popper.min.js"></script>
+<script src="text_as_data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="text_as_data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="text_as_data_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="text_as_data_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
-  <title>Natural Language Processing with Entropy</title>
+  <title>Text as data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="text_as_data_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="text_as_data_files/libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,12 +32,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
+  <link rel="stylesheet" href="text_as_data_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../styles/dsta_slides.css">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="text_as_data_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="text_as_data_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="text_as_data_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="text_as_data_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -132,7 +132,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Natural Language Processing with Entropy</h1>
+  <h1 class="title">Text as data</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -143,195 +143,406 @@ AP
 </div>
 
 </section>
-<section id="nlp-and-entropy-measures" class="slide level2">
-<h2>NLP and Entropy measures</h2>
-</section>
-<section id="motivations" class="slide level2">
-<h2>Motivations</h2>
-<p>Today, Natural language processing (NLP) is advancing thanks (mostly) to the deployment of sophisticated Machine Learning architectures.</p>
-<p>A key enabling factor is the ready availability of large corpora which feed extensive training of the ML architectures</p>
-</section>
-<section class="slide level2">
-
-<p>New computational problems are now addressed. Example: given a prompt text, complete the phrase in an intelligible (i.e., human) way.</p>
-<div class="fragment">
-<p>Entropy helps us understand and evaluate progress in NL, e.g., in language generation.</p>
-</div>
-</section>
-<section id="agenda" class="slide level2">
-<h2>Agenda</h2>
+<section id="big-picture" class="slide level2">
+<h2>Big picture</h2>
 <ul>
-<li><p>A general introduction to NLP</p></li>
-<li><p>Language models: a quick glance</p></li>
-<li><p>introduction of Cross-entropy</p></li>
+<li><p>[verbal] language is the main vehicle of human comunication</p></li>
+<li><p>until short ago, the main encoding of data/knowledge</p></li>
 </ul>
-<!-- ---------------------- -->
-</section>
-<section>
-<section id="current-topics-in-nlp" class="title-slide slide level1 center">
-<h1>Current Topics in NLP</h1>
-
-</section>
-<section id="named-entities" class="slide level2">
-<h2>Named entities</h2>
-<p>Suppose, we want to extract Coronavirus symptoms from a stream of Twitter posts dedicated to Covid-19.</p>
-<p>Finding a new symptom is the task of <em>Named Entity Recognition (NER).</em></p>
-
-<img data-src="./imgs/example-fever.png" class="r-stretch"></section>
-<section class="slide level2">
-
-<p>Definition:</p>
-<p>given a text find all persons, locations and organisations that the text refers to.</p>
-</section>
-<section id="more-challenges" class="slide level2">
-<h2>More challenges</h2>
-<h3 id="language-generation-prompt-generation">Language generation (prompt generation)</h3>
-<p>given the initial part of a phrase, called <code>prompt</code> give a <em>proper</em> completion of the phrase.</p>
-<p>. . .</p>
-<h4 id="question-answering">Question answering</h4>
-<p>Given a question in natural language, reply to it <em>properly.</em></p>
-<p>We need a metrics to determine what is <em>proper</em> for a solution.</p>
-</section>
-<section class="slide level2">
-
-<h4 id="phrase-completion">Phrase completion</h4>
-<p><strong>Instance:</strong> a phrase/sequence of words W</p>
-<p><strong>Solution:</strong> the next word(s) in the phrase.</p>
-<p>. . .</p>
-<p>We will focus on this problem.</p>
-</section>
-<section id="supervised-ml" class="slide level2">
-<h2>Supervised ML</h2>
-<p>Named entity recognition (and others) are normally addressed by means of a <em>supervised Machine Learning model.</em></p>
-<p>It starts with human, reliable annotation of example texts: the training data.</p>
-
-<img data-src="./imgs/annotation.png" class="r-stretch"></section>
-<section class="slide level2">
-
-<p>If <em>well-trained,</em> the ML model will be capable of predicting the entities in new text.</p>
-
-<!-- ----------- -->
-<img data-src="./imgs/model.png" class="r-stretch"></section></section>
-<section>
-<section id="phrase-completion-1" class="title-slide slide level1 center">
-<h1>Phrase Completion</h1>
-
-</section>
-<section id="predicting-the-next-word" class="slide level2">
-<h2>Predicting the next word</h2>
-<p>An algorithm which assigns probabilities to sequences of words is called a <em>language model (LM).</em></p>
-<p>The simplest model assigns probabilities to sentences and sequences of words, the <em>n-gram.</em></p>
-</section>
-<section id="n-gram-models" class="slide level2">
-<h2>N-gram models</h2>
-<p>An n-gram is a sequence of n words:</p>
-<p>2-gram (bigram): “switch off” or ”your homework”</p>
-<p>3-gram (trigram): “please turn your,” or “turn your homework”.</p>
-</section>
-<section class="slide level2">
-
-<p>N-gram prediction is based on probabilities.<br>
-Probs. are extracted from frequencies of co-occurence in corpora.</p>
 <div class="fragment">
-<p>This bigram tabled by [Martin-Jufrasky] is a LM in itself</p>
-<p><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf"><img data-src="./imgs/m-j-bigrams.png"></a></p>
+<ul>
+<li><p>languages represent what we value and [seems to] determine what we <strong>can</strong> think.</p></li>
+<li><p>universal grammars are studied.</p></li>
+</ul>
 </div>
 </section>
-<section id="how-to-evaluate-results" class="slide level2">
-<h2>How to evaluate results</h2>
-<p>N-gram models estimate the probability of the last word of an n-gram given the previous words.</p>
-<p><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf"><img data-src="./imgs/m-j-bigrams.png"></a> Which is the best N-gram model?</p>
-<p>To rate them we need Information theory.</p>
-<!-- --------------- -->
+<section class="slide level2">
+
+<ul>
+<li><p>complex grammars: a sign of affectation?</p></li>
+<li><p>terms are ambiguos <strong>by design</strong></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>the polar opposite of what data analytics needs!</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<p>From the <a href="http://www.bmj.com/content/360/bmj.k793">British Medical Journal</a>:</p>
+<p><strong>Organ specific immune-related adverse events are uncommon with anti-PD-1 drugs but the risk is increased compared with control treatments. General adverse events related to immune activation are largely similar. Adverse events consistent with musculoskeletal problems are inconsistently reported but adverse events may be common.</strong></p>
+</section>
+<section class="slide level2">
+
+<p>From <a href="http://www.menshealth.co.uk/healthy/according-to-data-this-is-the-perfect-male-specimen">Men’s Health</a>:</p>
+<p><strong>The stats don’t lie… here’s how to get the looks of her dreams</strong></p>
+<p><strong>Love is in the eye of the beholder.</strong></p>
+<p><strong>But good looks are down to science… sort of.</strong></p>
+<p><strong>Ah, the chest. The part of the body most men would like to grow. Luckily, you have come to the right place. We really do know a thing or two about building muscle. Take your pick from the workouts below to stretch your chest.</strong></p>
+<!-- ----->
+</section>
+<section>
+<section id="from-text-to-numerical-methods" class="title-slide slide level1 center">
+<h1>From Text to numerical methods</h1>
+
+</section>
+<section id="the-occurrence-matrix" class="slide level2">
+<h2>The occurrence matrix</h2>
+<p>Often text (document) analysis begins with word occurrence analysis: we record word usage irrespective of the position in text.</p>
+<div class="fragment">
+<p>Let a document be a bag of words. Let a corpus be a collection of documents.</p>
+</div>
+<div class="fragment">
+<p>The occurence matrix A:</p>
+<p><span class="math inline">\(a_{ij} = k\)</span></p>
+<p>means that word <span class="math inline">\(i\)</span> appears <span class="math inline">\(k\)</span> times in document <span class="math inline">\(j.\)</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Word <span class="math inline">\(i\)</span> is represented by the <span class="math inline">\(i\)</span>-th row of A (also <span class="math inline">\(A^T_i\)</span>)</p>
+<div class="fragment">
+<p>With row normalisation, word usage becomes a prob. distribution to which Entropy analysis can be applied.</p>
+<p>With column norm., we analyse a document by its entropy.</p>
+<!-- --------------------->
+</div>
 </section></section>
 <section>
-<section id="cross-entropy" class="title-slide slide level1 center">
-<h1>Cross Entropy</h1>
+<section id="text-compression" class="title-slide slide level1 center">
+<h1>Text Compression</h1>
 
 </section>
-<section id="approach" class="slide level2">
-<h2>Approach</h2>
-<p>Let’s consider N-grams.</p>
-<p>What is the best N-gram model for predicting the next word of a sequence W?</p>
-<p>Information theory provides an abstract yet effective tool to evaluate the quality of solutions (against some test data).</p>
-</section>
-<section id="preliminaries" class="slide level2">
-<h2>Preliminaries</h2>
-<p>Let P(i) and Q(i) be two prob. distributions drawn from the same underlying set of <span class="math inline">\(n\)</span> possible <em>outcomes:</em> <span class="math inline">\(X=\{x_1, \dots x_n\}\)</span>.</p>
-<p>Let P(i) be the current distribution: the text to be evaluated.</p>
-<p>Let Q(i) be the <em>reference distribution,</em> given by the model (trained on the whole corpus).</p>
-<p>The cross-entropy <span class="math inline">\(H(P, Q)\)</span> is defined as</p>
-<p><span class="math display">\[H(P,Q) = -\sum_{i=1}^{n}p(x_{i}) \log q(x_{i})\]</span></p>
-</section>
-<section id="perplexity" class="slide level2">
-<h2>Perplexity</h2>
-<p>Cross-entropy: <span class="math inline">\(H(P,Q) = -\sum_{i=1}^{n}p(x_{i}) \log q(x_{i})\)</span></p>
-<div class="fragment">
-<p>Perplexity: <span class="math inline">\(PP(H, Q)= 2^{H(P, Q)}.\)</span></p>
-<p>A lower perplexity indicates a better model.</p>
-</div>
-</section>
-<section id="computing-perplexity" class="slide level2">
-<h2>Computing perplexity</h2>
-<p>Large-scale NLP models provide a convenient approximation</p>
-<p>Let <span class="math inline">\(W = w_1, \dots, w_N\)</span> be the phrase at hand.</p>
-<p>For each word occurence <span class="math inline">\(w_i\)</span>, the model assigns a prob. <span class="math inline">\(P(w_i)\)</span>.</p>
-<p>Now, Entropy approximates the cross-entropy of W:</p>
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log P(W)\)</span></p>
-<div class="fragment">
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log \Pi_{i=1}^{N} P(w_i)\)</span></p>
-</div>
-</section>
-<section id="perplexity-in-action" class="slide level2">
-<h2>Perplexity in action</h2>
+<section id="example-application-text-compression" class="slide level2">
+<h2>Example application: text compression</h2>
+<p>In languages, the occurrence of symbols is <a href="https://en.wikipedia.org/wiki/Letter_frequency">statistically imbalanced</a>:</p>
 
-<img data-src="./imgs/lm.png" class="r-stretch"><p>What is the perplexity of the following test sentence (notice grammar)?</p>
-<p>W = <code>prime corona symptom is fever and cough</code></p>
+<img data-src="./imgs/letters-frequency.png" class="r-stretch"><p>Zipf’s law: if the most frequent word appears k times, then the <span class="math inline">\(i\)</span>-th word by freq. appears <span class="math inline">\(\frac{k}{i}\)</span> times.</p>
 </section>
 <section class="slide level2">
 
-<p>W = <code>prime corona symptom is fever and cough</code></p>
-<p>W is now our P distribution</p>
-
-<img data-src="./imgs/lm.png" class="r-stretch"><p><span class="math inline">\(\frac{1}{N}=\frac{1}{7}\)</span></p>
-<p><span class="math inline">\(P(W) = \Pi_{i=1}^{N} P(w_i) = 1 \times 1 \times 1 \times 1 \times 0.33 \times 1 \times 1 =0.33\)</span></p>
+<ul>
+<li><p>low-frequency characters have high information entropy</p></li>
+<li><p>similarly, low-frequency words have high information entropy: <strong>they tell more about the underlying topic of the document</strong></p></li>
+<li><p>A simpler application of Entropy is text compression</p></li>
+</ul>
 </section>
-<section class="slide level2">
-
-<p>Let’s compute the Cross entropy of W:</p>
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log \Pi_{i=1}^{N} P(w_i)\)</span></p>
+<section id="encoding-compression" class="slide level2 scrollable">
+<h2>Encoding compression</h2>
+<ol type="1">
+<li>collect the frequencies of characters in a relevant <strong>corpus</strong></li>
+</ol>
+<p>A collection of documents taken to be representative of the target language</p>
 <div class="fragment">
-<p><span class="math inline">\(H(W) = -\frac{1}{7}\cdot \log(1\cdot 1 \cdot 1 \cdot 1 \cdot 0.33 \cdot 1 \cdot 1 )\)</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(H(W) = -\frac{1}{7} \cdot (-0.625) = 0.089\)</span></p>
-<p><span class="math inline">\(PP(W) = 2^{H(W)} = 2^{0.089} = 1.063\)</span></p>
-</div>
-</section>
-<section id="mastering-perplexity" class="slide level2">
-<h2>Mastering perplexity</h2>
-<p><span class="math inline">\(H(W)\)</span> is the average number of bits needed to encode each word.</p>
-<p><span class="math inline">\(P(W)=2^{H(W)}\)</span> is the average number of words that can be encoded using H(W) bits.</p>
-<div class="fragment">
-<p><strong>However…</strong></p>
+<ol type="1">
+<li>sort letters by their <strong>increasing</strong> freq., e.g., for <a href="https://en.wikipedia.org/wiki/Letter_frequency">English</a></li>
+</ol>
 </div>
 </section>
 <section class="slide level2">
 
-<p>We interpret perplexity as a weighted branching factor for the possible completions of W.</p>
-<p>If PP=1 there is no doubt on what the next word should be.</p>
-<p>If PP=100 then whenever the model is trying to guess the next word it is as confused as if it had to pick between 100 words.</p>
-</section>
-<section class="slide level2">
 
-<p>W = <code>I study at Birkbeck...</code></p>
-<p>which is the next likely word?</p>
+<img data-src="./imgs/letters-frequency.png" class="r-stretch"><p>Encoding compressed from <span class="math inline">\(\log_2 27 \approx 4.75\)</span> to <span class="math inline">\(H[Pr[l_i]]\approx 4.22\)</span></p>
+<p>Further comp. by taking 2- and 3-grams: sequences of 2 or 3 characters.</p>
+<p>The 3-gram <strong>ent</strong> appears more often than <strong>uzb.</strong></p>
+</section>
+<section class="slide level2 scrollable">
+
+<ol type="1">
+<li>encode the least frequent two as 0 and 1.</li>
+</ol>
+<table>
+<tbody><tr>
+<th>
+Char.
+</th>
+<th>
+Freq.
+</th>
+<th>
+Encoding
+</th>
+</tr>
+<tr>
+<td>
+z
+</td>
+<td>
+.007
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+q
+</td>
+<td>
+.009
+</td>
+<td>
+1
+</td>
+</tr>
+</tbody></table>
 <div class="fragment">
-<p><span class="math inline">\(M_1\)</span>: <code>College</code></p>
-<p>with perplexity 3: <code>University</code> and <code>London</code> are also highly probable completions.</p>
-<p><span class="math inline">\(M_2\)</span>: <code>University</code></p>
-<p>with perplexity 1.5: <code>College</code> is the only medium-probability alternative.</p>
-<p>We prefer <span class="math inline">\(M_2\)</span> as the lowest-perplexity model.</p>
+<ol start="4" type="1">
+<li>Prefix “1” to the existing codes; encode the third-least freq. letter as 0:</li>
+</ol>
+<table>
+<tbody><tr>
+<th>
+Char.
+</th>
+<th>
+Freq.
+</th>
+<th>
+Encoding
+</th>
+</tr>
+<tr>
+<td>
+z
+</td>
+<td>
+.007
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td>
+q
+</td>
+<td>
+.009
+</td>
+<td>
+11
+</td>
+</tr>
+<tr>
+<td>
+x
+</td>
+<td>
+.15
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+<section class="slide level2 scrollable">
+
+<ol start="5" type="1">
+<li>Prefix “1” to all; encode the fourth-least frequent letter as 0 again:</li>
+</ol>
+<table>
+<tbody><tr>
+<th>
+Char.
+</th>
+<th>
+Freq.
+</th>
+<th>
+Encoding
+</th>
+</tr>
+<tr>
+<td>
+z
+</td>
+<td>
+.007
+</td>
+<td>
+110
+</td>
+</tr>
+<tr>
+<td>
+q
+</td>
+<td>
+.009
+</td>
+<td>
+111
+</td>
+</tr>
+<tr>
+<td>
+x
+</td>
+<td>
+.15
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td>
+j
+</td>
+<td>
+.153
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody></table>
+</section>
+<section class="slide level2 scrollable">
+
+<ol start="5" type="1">
+<li>finally…</li>
+</ol>
+<table>
+<tbody><tr>
+<th>
+Char.
+</th>
+<th>
+Freq.
+</th>
+<th>
+Encoding
+</th>
+</tr>
+<tr>
+<td>
+z
+</td>
+<td>
+.007
+</td>
+<td>
+1…10
+</td>
+</tr>
+<tr>
+<td>
+…
+</td>
+<td>
+…
+</td>
+<td>
+…
+</td>
+</tr>
+<tr>
+<td>
+t
+</td>
+<td>
+9.05
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td>
+e
+</td>
+<td>
+12.72
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody></table>
+<!-- -->
+</section>
+<section id="application-text-compression" class="slide level2">
+<h2>Application: text compression</h2>
+<p><a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffmann algorithm</a>: frequency-based letter encoding</p>
+<ul>
+<li><p>Optimal wrt. the theoretical lower-bound H.</p></li>
+<li><p>coding is <strong>prefix-free:</strong> no code is the prefix of another</p></li>
+<li><p><strong>greedy</strong> algorithm: cost grows with <span class="math inline">\(n\log n\)</span></p></li>
+</ul>
+<!-- -------------------------------- -->
+</section></section>
+<section>
+<section id="information-retrieval" class="title-slide slide level1 center">
+<h1>Information Retrieval</h1>
+
+</section>
+<section id="definition" class="slide level2">
+<h2>Definition</h2>
+<p>Instance:</p>
+<ul>
+<li><p>a collection of N documents</p></li>
+<li><p>a query ([set of ]keyword[s])</p></li>
+</ul>
+<div class="fragment">
+<p>Solution:</p>
+<ul>
+<li>a selection of the documents ranked by their importance wrt. the keyword[s]</li>
+</ul>
+</div>
+<div class="fragment">
+<p>text documents</p>
+<p>keyword-based ranking (doc. is a <strong>bag of words)</strong></p>
+</div>
+</section>
+<section id="stopwords" class="slide level2">
+<h2>Stopwords</h2>
+
+<img data-src="./imgs/stopwords.png" class="r-stretch"></section>
+<section id="term-frequency-tf" class="slide level2">
+<h2>Term frequency (TF)</h2>
+<p>Rank documents on the basis of the frequence of the keyword in each</p>
+<div class="fragment">
+<p>Euristics: At same frequency, choose those where the keyword appears <strong>earlier</strong></p>
+</div>
+<div class="fragment">
+<p>For low-frequency (high-Entropy) terms simple relative frequencies work: eliminate <strong>stopwords</strong></p>
+<p><span class="math inline">\(TF(q_i, d_j) = \frac{|q_i\in d_j|}{MAX{|q_x\in d_j}|}\)</span></p>
+</div>
+</section>
+<section id="inverted-doc.-freq.-idf" class="slide level2">
+<h2>Inverted Doc. Freq. (IDF)</h2>
+<p>A query term <span class="math inline">\(q_i\)</span> is <strong>specific</strong> in inverse relation to the number of documents in which it occurs</p>
+<div class="fragment">
+<p>N documents, <span class="math inline">\(n(q_i)\)</span> of which contain <span class="math inline">\(q_i\)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[IDF(q_i) = \log \frac{N}{n(q_i)}\]</span></p>
+</div>
+</section>
+<section id="tf-idf" class="slide level2">
+<h2>TF-IDF</h2>
+<p>The standard <strong>empirical</strong> measure for IR ranking</p>
+<p><span class="math display">\[TFIDF(q_i, d_j, C) = TF(q_i, d_j) \cdot IDF(q_i, C)\]</span></p>
+<div class="fragment">
+<p>For frequent terms (after stopwords) we can <em>smooth</em> <span class="math inline">\(IDF(q_i, C)\)</span> to <span class="math inline">\(\log (1+ \frac{N}{n(q_i)})\)</span></p>
+</div>
+</section>
+<section id="advanced-tools" class="slide level2">
+<h2>Advanced tools</h2>
+<ul>
+<li>Part-of-speech recognition (POS)</li>
+</ul>
+<p>the context and its frequency guides the labelling of <strong>words</strong>.</p>
+<div class="fragment">
+<ul>
+<li><p>Named-Entity recognition (NER)</p></li>
+<li><p>follows POS</p></li>
+<li><p>A group of words are recognized as <strong>naming</strong> a worldy object or a stand-alone concept.</p></li>
+</ul>
 
 </div>
 </section></section>
@@ -343,19 +554,19 @@ Probs. are extracted from frequencies of co-occurence in corpora.</p>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="nlp_entropy_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="text_as_data_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="nlp_entropy_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="nlp_entropy_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="text_as_data_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

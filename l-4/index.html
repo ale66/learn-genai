@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="nlp_entropy_files/libs/clipboard/clipboard.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/tabby.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/popper.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="nlp_entropy_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="nlp_entropy_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="nlp_entropy_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
-  <meta name="author" content="AP">
-  <title>Natural Language Processing with Entropy</title>
+  <meta name="author" content="FP, FP and AP">
+  <title>GenAI: a mid-resolution view</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,12 +32,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
-  <link rel="stylesheet" href="../styles/dsta_slides.css">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
+  <link rel="stylesheet" href="../../styles/dsta_slides.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -132,208 +132,252 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Natural Language Processing with Entropy</h1>
+  <h1 class="title">GenAI: a mid-resolution view</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-AP 
+FP, FP and AP 
 </div>
 </div>
 </div>
 
 </section>
-<section id="nlp-and-entropy-measures" class="slide level2">
-<h2>NLP and Entropy measures</h2>
-</section>
-<section id="motivations" class="slide level2">
-<h2>Motivations</h2>
-<p>Today, Natural language processing (NLP) is advancing thanks (mostly) to the deployment of sophisticated Machine Learning architectures.</p>
-<p>A key enabling factor is the ready availability of large corpora which feed extensive training of the ML architectures</p>
-</section>
-<section class="slide level2">
+<section>
+<section id="part-i-foundations-of-generative-modeling" class="title-slide slide level1 center" data-background-color="#0d1b2a">
+<h1>Part I: Foundations of Generative Modeling</h1>
 
-<p>New computational problems are now addressed. Example: given a prompt text, complete the phrase in an intelligible (i.e., human) way.</p>
-<div class="fragment">
-<p>Entropy helps us understand and evaluate progress in NL, e.g., in language generation.</p>
-</div>
 </section>
-<section id="agenda" class="slide level2">
-<h2>Agenda</h2>
+<section id="discriminative-vs-generative" class="slide level2">
+<h2>Discriminative vs Generative</h2>
+<blockquote>
+<p>Generative models aim to learn the <strong>joint probability distribution</strong> of data, whereas discriminative models learn conditional boundaries.</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="discriminative">Discriminative</h3>
+<p>Maps high-dimensional input to a discrete label.</p>
+<p>Optimises <span class="math inline">\(P(Y \mid X)\)</span>.</p>
+</div><div class="column" style="width:50%;">
+<h3 id="generative">Generative</h3>
+<p>Models how data was generated. Can generate new <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span> (conditional) or just <span class="math inline">\(X\)</span> (unconditional).</p>
+<p><span class="math inline">\(P_{\text{joint}}(X, Y) = P(X \mid Y)\,P(Y)\)</span></p>
+<p><span class="math inline">\(\quad X \sim P_{\text{data}}\)</span></p>
+</div></div>
+</section>
+<section id="probabilistic-foundations" class="slide level2">
+<h2>Probabilistic Foundations</h2>
 <ul>
-<li><p>A general introduction to NLP</p></li>
-<li><p>Language models: a quick glance</p></li>
-<li><p>introduction of Cross-entropy</p></li>
+<li><strong>Sampling</strong> — drawing from the learned manifold <span class="math inline">\(P_{\text{data}}\)</span>.</li>
+<li><strong>Density Estimation</strong> — explicitly modelling the likelihood <span class="math inline">\(p(x)\)</span>.</li>
 </ul>
-<!-- ---------------------- -->
-</section>
-<section>
-<section id="current-topics-in-nlp" class="title-slide slide level1 center">
-<h1>Current Topics in NLP</h1>
+<p>Latent space visualisation: two class manifolds in a 2-D projection of a learned embedding</p>
 
-</section>
-<section id="named-entities" class="slide level2">
-<h2>Named entities</h2>
-<p>Suppose, we want to extract Coronavirus symptoms from a stream of Twitter posts dedicated to Covid-19.</p>
-<p>Finding a new symptom is the task of <em>Named Entity Recognition (NER).</em></p>
-
-<img data-src="./imgs/example-fever.png" class="r-stretch"></section>
-<section class="slide level2">
-
-<p>Definition:</p>
-<p>given a text find all persons, locations and organisations that the text refers to.</p>
-</section>
-<section id="more-challenges" class="slide level2">
-<h2>More challenges</h2>
-<h3 id="language-generation-prompt-generation">Language generation (prompt generation)</h3>
-<p>given the initial part of a phrase, called <code>prompt</code> give a <em>proper</em> completion of the phrase.</p>
-<p>. . .</p>
-<h4 id="question-answering">Question answering</h4>
-<p>Given a question in natural language, reply to it <em>properly.</em></p>
-<p>We need a metrics to determine what is <em>proper</em> for a solution.</p>
-</section>
-<section class="slide level2">
-
-<h4 id="phrase-completion">Phrase completion</h4>
-<p><strong>Instance:</strong> a phrase/sequence of words W</p>
-<p><strong>Solution:</strong> the next word(s) in the phrase.</p>
-<p>. . .</p>
-<p>We will focus on this problem.</p>
-</section>
-<section id="supervised-ml" class="slide level2">
-<h2>Supervised ML</h2>
-<p>Named entity recognition (and others) are normally addressed by means of a <em>supervised Machine Learning model.</em></p>
-<p>It starts with human, reliable annotation of example texts: the training data.</p>
-
-<img data-src="./imgs/annotation.png" class="r-stretch"></section>
-<section class="slide level2">
-
-<p>If <em>well-trained,</em> the ML model will be capable of predicting the entities in new text.</p>
-
-<!-- ----------- -->
-<img data-src="./imgs/model.png" class="r-stretch"></section></section>
-<section>
-<section id="phrase-completion-1" class="title-slide slide level1 center">
-<h1>Phrase Completion</h1>
-
-</section>
-<section id="predicting-the-next-word" class="slide level2">
-<h2>Predicting the next word</h2>
-<p>An algorithm which assigns probabilities to sequences of words is called a <em>language model (LM).</em></p>
-<p>The simplest model assigns probabilities to sentences and sequences of words, the <em>n-gram.</em></p>
-</section>
-<section id="n-gram-models" class="slide level2">
-<h2>N-gram models</h2>
-<p>An n-gram is a sequence of n words:</p>
-<p>2-gram (bigram): “switch off” or ”your homework”</p>
-<p>3-gram (trigram): “please turn your,” or “turn your homework”.</p>
-</section>
-<section class="slide level2">
-
-<p>N-gram prediction is based on probabilities.<br>
-Probs. are extracted from frequencies of co-occurence in corpora.</p>
-<div class="fragment">
-<p>This bigram tabled by [Martin-Jufrasky] is a LM in itself</p>
-<p><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf"><img data-src="./imgs/m-j-bigrams.png"></a></p>
+<img data-src="imgs/latent_space_visualization.png" style="width:45.0%" class="r-stretch"></section>
+<section id="the-transformer-architecture" class="slide level2">
+<h2>The Transformer Architecture</h2>
+<blockquote>
+<p>The paradigm shift from recurrent to <strong>parallelisable</strong> attention mechanisms (Vaswani et al., 2017).</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li><strong>No Recurrence</strong> — solves the vanishing-gradient problem in long sequences.</li>
+<li><strong>Positional Encoding</strong> — injects sequential order via sinusoidal functions.</li>
+<li><strong>Architecture</strong> — stacked <strong>Encoder</strong> (NLU) and <strong>Decoder</strong> (NLG) blocks.</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/transformer_architecture.png" style="width:90.0%"></p>
+<figcaption>Encoder block: Input Embedding → Positional Encoding → Multi-Head Attention → Add &amp; Norm → Feed Forward → Add &amp; Norm (repeated Nx times).</figcaption>
+</figure>
 </div>
+</div></div>
 </section>
-<section id="how-to-evaluate-results" class="slide level2">
-<h2>How to evaluate results</h2>
-<p>N-gram models estimate the probability of the last word of an n-gram given the previous words.</p>
-<p><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf"><img data-src="./imgs/m-j-bigrams.png"></a> Which is the best N-gram model?</p>
-<p>To rate them we need Information theory.</p>
-<!-- --------------- -->
+<section id="attention-mechanism-the-core" class="slide level2">
+<h2>Attention Mechanism: The Core</h2>
+<blockquote>
+<p>Mapping Query, Key, and Value vectors to compute <strong>dynamic weightings</strong>.</p>
+</blockquote>
+<table class="caption-top">
+<colgroup>
+<col style="width: 57%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Vector</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Query (Q)</strong></td>
+<td>Represents the token <em>currently seeking context</em> from others.</td>
+</tr>
+<tr class="even">
+<td><strong>Key (K)</strong></td>
+<td>“Index” vector used to calculate relevance (similarity) with the Query.</td>
+</tr>
+<tr class="odd">
+<td><strong>Value (V)</strong></td>
+<td>Content vector <em>aggregated</em> based on the attention weights.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right) V\]</span></p>
+</section>
+<section id="stages-of-llm-development" class="slide level2">
+<h2>Stages of LLM Development</h2>
+<blockquote>
+<p><strong>Scaling Laws</strong> — performance follows a power law relative to Compute <span class="math inline">\(C\)</span>, Data <span class="math inline">\(D\)</span>, and Parameters <span class="math inline">\(N\)</span>.</p>
+</blockquote>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pre-training</strong></td>
+<td>Next-token prediction on trillions of tokens. Self-supervised learning.</td>
+</tr>
+<tr class="even">
+<td><strong>SFT</strong></td>
+<td>Supervised Fine-Tuning on instruction–response pairs.</td>
+</tr>
+<tr class="odd">
+<td><strong>RLHF</strong></td>
+<td>Proximal Policy Optimisation (PPO) using a Reward Model.</td>
+</tr>
+<tr class="even">
+<td><strong>DPO</strong></td>
+<td>Direct Preference Optimisation for alignment without RL complexity.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="parameter-efficient-fine-tuning-lora" class="slide level2">
+<h2>Parameter-Efficient Fine-Tuning (LoRA)</h2>
+<blockquote>
+<p><strong>LoRA</strong> (Low-Rank Adaptation) freezes the original weights and injects trainable rank-decomposition matrices.</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li>Reduces trainable parameters by <strong>10,000×</strong>.</li>
+<li>Minimal VRAM overhead (<strong>QLoRA</strong>: 4-bit quantisation).</li>
+<li><strong>No inference latency</strong> — adapted weights are merged at deployment.</li>
+</ul>
+<p><span class="math display">\[h = W_0\,x + \Delta W\,x = W_0\,x + B A\,x\]</span></p>
+<p>where <span class="math inline">\(B \in \mathbb{R}^{d \times r}\)</span>, <span class="math inline">\(A \in \mathbb{R}^{r \times d}\)</span>, rank <span class="math inline">\(r \ll d\)</span>.</p>
+</div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/lora_architecture.png" style="width:85.0%"></p>
+<figcaption>LoRA: the pretrained weight matrix <span class="math inline">\(W \in \mathbb{R}^{d\times d}\)</span> is frozen; only the low-rank factors <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are trained (<span class="math inline">\(B\)</span> initialised to 0).</figcaption>
+</figure>
+</div>
+</div></div>
 </section></section>
 <section>
-<section id="cross-entropy" class="title-slide slide level1 center">
-<h1>Cross Entropy</h1>
+<section id="part-ii-vision-diffusion" class="title-slide slide level1 center" data-background-color="#0a2240">
+<h1>Part II: Vision &amp; Diffusion</h1>
 
 </section>
-<section id="approach" class="slide level2">
-<h2>Approach</h2>
-<p>Let’s consider N-grams.</p>
-<p>What is the best N-gram model for predicting the next word of a sequence W?</p>
-<p>Information theory provides an abstract yet effective tool to evaluate the quality of solutions (against some test data).</p>
+<section id="beyond-autoregressive-modeling" class="slide level2">
+<h2>Beyond Autoregressive Modeling</h2>
 </section>
-<section id="preliminaries" class="slide level2">
-<h2>Preliminaries</h2>
-<p>Let P(i) and Q(i) be two prob. distributions drawn from the same underlying set of <span class="math inline">\(n\)</span> possible <em>outcomes:</em> <span class="math inline">\(X=\{x_1, \dots x_n\}\)</span>.</p>
-<p>Let P(i) be the current distribution: the text to be evaluated.</p>
-<p>Let Q(i) be the <em>reference distribution,</em> given by the model (trained on the whole corpus).</p>
-<p>The cross-entropy <span class="math inline">\(H(P, Q)\)</span> is defined as</p>
-<p><span class="math display">\[H(P,Q) = -\sum_{i=1}^{n}p(x_{i}) \log q(x_{i})\]</span></p>
-</section>
-<section id="perplexity" class="slide level2">
-<h2>Perplexity</h2>
-<p>Cross-entropy: <span class="math inline">\(H(P,Q) = -\sum_{i=1}^{n}p(x_{i}) \log q(x_{i})\)</span></p>
-<div class="fragment">
-<p>Perplexity: <span class="math inline">\(PP(H, Q)= 2^{H(P, Q)}.\)</span></p>
-<p>A lower perplexity indicates a better model.</p>
+<section id="diffusion-mechanics" class="slide level2">
+<h2>Diffusion Mechanics</h2>
+<blockquote>
+<p>Diffusion models generate data by <strong>reversing a Markov chain</strong> that slowly adds Gaussian noise to the input.</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>Key Components</strong></p>
+<ul>
+<li><strong>Forward Process</strong> — adds Gaussian noise step by step until <span class="math inline">\(q(x_T) \approx \mathcal{N}(0, I)\)</span>.</li>
+<li><strong>Reverse Process</strong> — a U-Net learns to predict and subtract noise at each step.</li>
+<li>Optimised via <strong>Denoising Score Matching</strong>.</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/diffusion_process.png" style="width:100.0%"></p>
+<figcaption>Forward (top) and reverse (bottom) diffusion process: an image is gradually corrupted to pure noise, then reconstructed via iterative denoising.</figcaption>
+</figure>
 </div>
+</div></div>
 </section>
-<section id="computing-perplexity" class="slide level2">
-<h2>Computing perplexity</h2>
-<p>Large-scale NLP models provide a convenient approximation</p>
-<p>Let <span class="math inline">\(W = w_1, \dots, w_N\)</span> be the phrase at hand.</p>
-<p>For each word occurence <span class="math inline">\(w_i\)</span>, the model assigns a prob. <span class="math inline">\(P(w_i)\)</span>.</p>
-<p>Now, Entropy approximates the cross-entropy of W:</p>
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log P(W)\)</span></p>
-<div class="fragment">
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log \Pi_{i=1}^{N} P(w_i)\)</span></p>
+<section id="variational-autoencoders-vaes" class="slide level2">
+<h2>Variational Autoencoders (VAEs)</h2>
+<blockquote>
+<p>Learning a <strong>probabilistic latent space</strong> by maximising the Evidence Lower BOund (ELBO).</p>
+</blockquote>
+<p><span class="math display">\[\text{ELBO} = \mathbb{E}_{q_\phi(z|x)}\!\left[\log p_\theta(x \mid z)\right]
+  - D_{\text{KL}}\!\left(q_\phi(z \mid x) \;\|\; p(z)\right)\]</span></p>
+<p>The <strong>KL-divergence</strong> term acts as a regulariser, forcing the latent distribution to stay near a standard Normal prior <span class="math inline">\(p(z) = \mathcal{N}(0, I)\)</span>.</p>
+<p><strong>Reparameterisation Trick</strong> — to enable backpropagation through stochastic nodes:</p>
+<p><span class="math display">\[z = \mu + \varepsilon \cdot \sigma, \qquad \varepsilon \sim \mathcal{N}(0, I)\]</span></p>
+</section>
+<section id="multimodal-alignment-clip" class="slide level2">
+<h2>Multimodal Alignment: CLIP</h2>
+<blockquote>
+<p><strong>CLIP</strong> (Radford et al., 2021) — Contrastive Language-Image Pre-training aligns images and captions in a <strong>shared embedding space</strong>.</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Contrastive Loss</strong> — maximise cosine similarity for <span class="math inline">\(N\)</span> correct image–caption pairs; minimise it for the <span class="math inline">\(N^2 - N\)</span> incorrect pairs.</li>
+<li><strong>Foundation</strong> — enables zero-shot image classification and guides Stable Diffusion via text prompts.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imgs/clip_embedding.png" style="width:100.0%"></p>
+<figcaption>CLIP embedding space (a), CapDec training (b), and CapDec inference (c): image and text encoders are aligned so that a text decoder can generate captions from image embeddings alone.</figcaption>
+</figure>
 </div>
+</div></div>
 </section>
-<section id="perplexity-in-action" class="slide level2">
-<h2>Perplexity in action</h2>
+<section id="research-frontiers" class="slide level2">
+<h2>Research Frontiers</h2>
+<p><strong>Next Step:</strong> Agentic Workflows and Tool-use (ReAct / Toolformer).</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Area</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Interpretability</strong></td>
+<td>Mechanistic interpretability: reverse-engineering weights into human-understandable circuits.</td>
+</tr>
+<tr class="even">
+<td><strong>Long Context</strong></td>
+<td>Ring Attention and Linear Attention variants to process millions of tokens (<span class="math inline">\(\mathcal{O}(N)\)</span> complexity).</td>
+</tr>
+<tr class="odd">
+<td><strong>Safety &amp; Jailbreaking</strong></td>
+<td>Adversarial robustness and Constitutional AI for alignment and refusal mechanics.</td>
+</tr>
+</tbody>
+</table>
 
-<img data-src="./imgs/lm.png" class="r-stretch"><p>What is the perplexity of the following test sentence (notice grammar)?</p>
-<p>W = <code>prime corona symptom is fever and cough</code></p>
-</section>
-<section class="slide level2">
-
-<p>W = <code>prime corona symptom is fever and cough</code></p>
-<p>W is now our P distribution</p>
-
-<img data-src="./imgs/lm.png" class="r-stretch"><p><span class="math inline">\(\frac{1}{N}=\frac{1}{7}\)</span></p>
-<p><span class="math inline">\(P(W) = \Pi_{i=1}^{N} P(w_i) = 1 \times 1 \times 1 \times 1 \times 0.33 \times 1 \times 1 =0.33\)</span></p>
-</section>
-<section class="slide level2">
-
-<p>Let’s compute the Cross entropy of W:</p>
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log \Pi_{i=1}^{N} P(w_i)\)</span></p>
-<div class="fragment">
-<p><span class="math inline">\(H(W) = -\frac{1}{7}\cdot \log(1\cdot 1 \cdot 1 \cdot 1 \cdot 0.33 \cdot 1 \cdot 1 )\)</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(H(W) = -\frac{1}{7} \cdot (-0.625) = 0.089\)</span></p>
-<p><span class="math inline">\(PP(W) = 2^{H(W)} = 2^{0.089} = 1.063\)</span></p>
-</div>
-</section>
-<section id="mastering-perplexity" class="slide level2">
-<h2>Mastering perplexity</h2>
-<p><span class="math inline">\(H(W)\)</span> is the average number of bits needed to encode each word.</p>
-<p><span class="math inline">\(P(W)=2^{H(W)}\)</span> is the average number of words that can be encoded using H(W) bits.</p>
-<div class="fragment">
-<p><strong>However…</strong></p>
-</div>
-</section>
-<section class="slide level2">
-
-<p>We interpret perplexity as a weighted branching factor for the possible completions of W.</p>
-<p>If PP=1 there is no doubt on what the next word should be.</p>
-<p>If PP=100 then whenever the model is trying to guess the next word it is as confused as if it had to pick between 100 words.</p>
-</section>
-<section class="slide level2">
-
-<p>W = <code>I study at Birkbeck...</code></p>
-<p>which is the next likely word?</p>
-<div class="fragment">
-<p><span class="math inline">\(M_1\)</span>: <code>College</code></p>
-<p>with perplexity 3: <code>University</code> and <code>London</code> are also highly probable completions.</p>
-<p><span class="math inline">\(M_2\)</span>: <code>University</code></p>
-<p>with perplexity 1.5: <code>College</code> is the only medium-probability alternative.</p>
-<p>We prefer <span class="math inline">\(M_2\)</span> as the lowest-perplexity model.</p>
-
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -343,19 +387,19 @@ Probs. are extracted from frequencies of co-occurence in corpora.</p>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="nlp_entropy_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="nlp_entropy_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="nlp_entropy_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
