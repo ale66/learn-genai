@@ -1,31 +1,215 @@
 ---
-title: Learn-GenAI
-author: ale66
-date: today
-format: pdf
+title: "Artificial Intelligence"
+lang: en
+author: AP 
+format:
+  pdf:
+    papersize: A4
+    number-sections: true
+    pdf-engine: pdflatex
+  revealjs: 
+    theme: solarized
+    css: ../../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://github.com/ale66/learn-datascience
+jupyter: python3
 ---
 
-## Introduction
+# General Introduction
 
-This is a skeleton Quarto document for learning purposes.
 
----
+## Intelligence
 
-## Content
- 
-Add your learning notes and content here.
+Hard to define, relatively easy to recognise.
 
-### Example Section
+. . .
 
-This is an example of how to add more content to your learning document. You can include:
+Working definition: adequate interaction with the context: intelligent *behaviour.*
 
-- Bullet points
-- **Bold text** and *italic text*
-- Code blocks
-- Mathematical equations
+Lying on the beach, gazing a beautiful scenery and thinking great thoughts is not behaviour.
 
----
+Writing a poem about it (and getting it published) is intelligent *behaviour.*
 
-## Summary
 
-Document summary goes here.
+## Artificial
+
+Intelligent behaviour (IB) from artifacts, hardware/software.
+
+In this module: IB from software processes that handle/exchange text
+
+However: 
+
+- in nature IB is related to motility (no veggies)
+  
+- only embodied agents can hope to achieve IB
+
+
+## Artificial Intelligence
+
+A branch of Computer Science
+
+influx from Robotics, Psychology, Physiology, Philosophy (Logic), Maths (Stats) and whatnot
+
+the term was coined at the 1956 Dartmouth Conference
+
+build machines that behave intelligently
+
+those are *agents* because they change the world around them
+
+## The Dartmouth Schism
+
+[John McCarthy](https://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)) and [Marvin Minsky](https://en.wikipedia.org/wiki/Marvin_Minsky) disagreed
+
+- on **how a mind actually works**
+
+- hence, on how to build one
+
+# McCarthy
+
+
+## McCarthy 
+
+Observe IB in nature, understand its underlying principles
+
+replicate it with the language of Maths and CS 
+
+## Example
+
+The flying of birds
+
+Not really replicated, from Prometheus on 
+
+The Physical principle is now well understood: flying by airplane is now possible
+
+## McCarthy's vision 
+
+Every aspect of intelligence could eventually be described precisely enough to be programmed
+
+Symbolic (variable), rule-based reasoning (logical inference)
+
+```python
+if temperature > 30:
+  tomatoes.cover()
+  elif temperature > 20:
+    tomatoes.water(10)
+```
+
+knowledge graphs, automated planners, theorem provers, semantic web
+
+
+## Conclusions
+
+McC sees *mind* as a **reasoning engine**: it manipulates explicit, checkable statements about the world to determine what is true and what to do next.
+
+Reading: 
+- Concepts of Logical AI, 2000
+- the little thoughts of thinking machines
+  
+
+# Minsky
+
+
+## Cybernetics
+
+Observe the source of IB in nature: the brain, understand its underlying principles
+
+replicate it with the language of Maths and CS 
+
+focus on the specific experience of thought:
+
+- *K-lines*  mental triggers that reactivate a useful past mental state, supporting memory and learning by analogy.
+- *Emotions as a form of thought*
+- *No central commander* thinking emerges bottom-up from agent interactions
+
+## Example
+
+Neuro-motor control to follow objects
+
+A software artifact, the neural network, shows evolution ability against external pressure
+
+
+
+## Minsky's vision
+
+The mind is not one thing but a *society* of small, simple processes that cooperate and compete to produce the *emergent*  thought
+
+multi-agent systems, mixture-of-experts models, chain-of-thought prompting
+
+no single trick behind intelligence — *'the trick is that there is no trick.'* 
+
+IB emerges from the interaction of many 'mindless' parts.
+
+
+## Readings
+
+- *The society of Mind,* 1986
+
+- *A Framework for Representing Knowledge,* 1974
+
+
+## Summary and comparison
+
+
+| | McCarthy | Minsky |
+|---|---|---|
+| What is a mind? | A reasoning engine | A society of agents |
+| Knowledge format | Explicit logical sentences | Frames, K-lines, loosely structured |
+| Strength | Precision, generality, provability | Flexibility, handles exceptions naturally |
+| Risk | Brittle when world doesn't fit the rules | Hard to formalize, harder to guarantee correctness |
+| Famous output | Lisp, non-monotonic reasoning | Frames, *Society of Mind*, early neural net research |
+
+
+# Today
+
+## Minsky won
+
+- prediction, e.g., value estimation, clustering etc. is done with approximate methods
+
+- many such methods are based on artificial neural networks: a software that mimics the neuro-electric working of *neurons*
+
+- AI by now is identified with approximate methods that *learn from data*
+
+
+## AI as a misnomer
+
+- predicting the temperature tomorrow is not AI, it's Physics
+
+- yet, predicting temps. by a 'neural net' software that is trained on past data is AI
+
+The 'neural net' replication captures both the accuracy and the inexplicability of humans *feeling* the weather 
+
+This may or may not be acceptable: Explicable AI
+
+## Example
+
+Football matches are hard to predict, surprises are always possible
+
+experts will be guessing, mostly
+
+Yet, experts are often accurate in predicting the long-term success of teams, but not in a certain, numerical way
+
+## Consequences
+
+Today Natural Language Processing (NLP) systems learn from text
+
+text *is* data, input and output
+
+Methods are inspired by neural net models 
+
+access to the statistical distribution of words
+
+no access to the *ground* truth: `the sun raises from East` is just as good as `the sun raises from West`
+

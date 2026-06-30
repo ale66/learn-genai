@@ -1,4 +1,5 @@
 # learn-genai
+
 Notes about getting started with Generative AI
 
 ## Repository Structure
@@ -6,10 +7,12 @@ Notes about getting started with Generative AI
 This repository contains organized learning and project materials using Quarto documents:
 
 ### Learning Documents (l-0 to l-9)
+
 - `l-0/` through `l-9/`: Learning-focused documents
 - Each folder contains an `index.qmd` file with skeleton content
 
 ### Project Documents (p-0 to p-9)  
+
 - `p-0/` through `p-9/`: Project-focused documents
 - Each folder contains an `index.qmd` file with skeleton content
 
