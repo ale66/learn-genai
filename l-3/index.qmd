@@ -25,7 +25,7 @@ format:
     anchor-sections: true
     other-links:
       - text: Class page
-        href: https://github.com/ale66/learn-datascience
+        href: https://github.com/ale66/learn-genai
 jupyter: python3
 ---
 
