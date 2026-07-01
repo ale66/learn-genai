@@ -33,7 +33,7 @@ jupyter: python3
 
 ## Intelligence
 
-Hard to define, relatively easy to recognise.
+Hard to define, relatively easy to recognise
 
 the Reaction/Though/reasoning triad
 
@@ -81,14 +81,14 @@ intelligent *behaviour:*
 
 . . .
 
-Lying on the beach, gazing a beautiful scenery and thinking great thoughts ain't behaviour.
+Lying on the beach, gazing a beautiful scenery and thinking great thoughts ain't behaviour
 
-Writing a poem about it (and getting it published) is intelligent *behaviour.*
+Writing a poem about it (and getting it published) is intelligent *behaviour*
 
 
 ## Artificial
 
-Intelligent behaviour (IB) from artifacts, hardware/software.
+Intelligent behaviour (IB) from artifacts, hardware/software
 
 In this module: IB from software processes that handle/exchange text
 
@@ -165,10 +165,12 @@ Examples: knowledge graphs, automated planners, theorem provers, semantic web
 
 McCarthy sees *mind* as a **reasoning engine**: it manipulates explicit, checkable statements about the world to determine what is true and what to do next.
 
-Reading (Stanford page): 
+Readings, from the [Stanford page](https://www-formal.stanford.edu/jmc/frames.html): 
+
+- The little thoughts of thinking machines, 1983
+
 - Concepts of Logical AI, 2000
-- The little thoughts of thinking machines
-  
+
 
 # Minsky
 
@@ -205,9 +207,11 @@ Examples: multi-agent systems, mixture-of-experts models, chain-of-thought promp
 
 ## Readings
 
-- *The society of Mind,* 1986
 
 - *A Framework for Representing Knowledge,* 1974
+  
+- *The society of Mind,* 1986
+
 
 
 ## Summary and comparison
@@ -227,11 +231,13 @@ Examples: multi-agent systems, mixture-of-experts models, chain-of-thought promp
 
 - position and punctuation guide understanding of the phrase
   
-- use it to generate correct phrases
-
 - software keeps internal model of the world, it can check what phrase is true (sometimes)
 
-Example: *la vecchia porta la sbarra*
+- however, language is intrinsically ambigous, e.g.:
+
+  - en: *time flies like an arrow, fruit flies like a banana*
+
+  - it: *la vecchia porta la sbarra*
 
 ## Approaches to text: Minsky
 
