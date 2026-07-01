@@ -35,11 +35,53 @@ jupyter: python3
 
 Hard to define, relatively easy to recognise.
 
+the Reaction/Though/reasoning triad
+
+
+## Reaction
+
+- automated
+
+- peripheral
+
+- no need to be awake
+
+
+## Thought 
+
+- spontaneous
+
+- undirected
+    
+- must be being awake (mostly)
+
+
+## Reasoning 
+
+- intentional
+
+- directed: there's a goal
+  
+- explainable (legal arguments)
+
+- verbal
+
+## A Working definition:
+
+intelligent *behaviour:*
+
+*adequate interaction with the context*
+
+
+## intelligent behaviour
+
+- observable
+
+- active: something happens
+
 . . .
 
-Working definition: adequate interaction with the context: intelligent *behaviour.*
-
-Lying on the beach, gazing a beautiful scenery and thinking great thoughts is not behaviour.
+Lying on the beach, gazing a beautiful scenery and thinking great thoughts ain't behaviour.
 
 Writing a poem about it (and getting it published) is intelligent *behaviour.*
 
@@ -50,7 +92,11 @@ Intelligent behaviour (IB) from artifacts, hardware/software.
 
 In this module: IB from software processes that handle/exchange text
 
-However: 
+Agent: software process that can operate on computers human-like
+
+. . .
+
+However,  
 
 - in nature IB is related to motility (no veggies)
   
@@ -67,7 +113,7 @@ the term was coined at the 1956 Dartmouth Conference
 
 build machines that behave intelligently
 
-those are *agents* because they change the world around them
+those are *agents* because they act in the world around them
 
 ## The Dartmouth Schism
 
@@ -88,11 +134,12 @@ replicate it with the language of Maths and CS
 
 ## Example
 
-The flying of birds
+The flying of birds: 
 
-Not really replicated, from Prometheus on 
+- not really replicated, from Prometheus on 
 
-The Physical principle is now well understood: flying by airplane is now possible
+- the physics is now well understood: flying by airplane is now possible
+
 
 ## McCarthy's vision 
 
@@ -107,16 +154,20 @@ if temperature > 30:
     tomatoes.water(10)
 ```
 
-knowledge graphs, automated planners, theorem provers, semantic web
+An abstract statement
+
+the `temperature` variable makes it communicate with the context 
+
+Examples: knowledge graphs, automated planners, theorem provers, semantic web
 
 
 ## Conclusions
 
-McC sees *mind* as a **reasoning engine**: it manipulates explicit, checkable statements about the world to determine what is true and what to do next.
+McCarthy sees *mind* as a **reasoning engine**: it manipulates explicit, checkable statements about the world to determine what is true and what to do next.
 
-Reading: 
+Reading (Stanford page): 
 - Concepts of Logical AI, 2000
-- the little thoughts of thinking machines
+- The little thoughts of thinking machines
   
 
 # Minsky
@@ -136,21 +187,20 @@ focus on the specific experience of thought:
 
 ## Example
 
-Neuro-motor control to follow objects
+Optical neuro-motor control to follow objects
 
-A software artifact, the neural network, shows evolution ability against external pressure
-
+A software artifact, the neural network, shows evolutionary ability against external pressure
 
 
 ## Minsky's vision
 
 The mind is not one thing but a *society* of small, simple processes that cooperate and compete to produce the *emergent*  thought
 
-multi-agent systems, mixture-of-experts models, chain-of-thought prompting
+IB emerges from the interaction of many 'mindless' parts.
 
 no single trick behind intelligence — *'the trick is that there is no trick.'* 
 
-IB emerges from the interaction of many 'mindless' parts.
+Examples: multi-agent systems, mixture-of-experts models, chain-of-thought prompting
 
 
 ## Readings
@@ -170,6 +220,28 @@ IB emerges from the interaction of many 'mindless' parts.
 | Strength | Precision, generality, provability | Flexibility, handles exceptions naturally |
 | Risk | Brittle when world doesn't fit the rules | Hard to formalize, harder to guarantee correctness |
 | Famous output | Lisp, non-monotonic reasoning | Frames, *Society of Mind*, early neural net research |
+
+## Approaches to text: McCarthy
+
+- encode the grammar of natural language into software
+
+- position and punctuation guide understanding of the phrase
+  
+- use it to generate correct phrases
+
+- software keeps internal model of the world, it can check what phrase is true (sometimes)
+
+Example: *la vecchia porta la sbarra*
+
+## Approaches to text: Minsky
+
+- we learn the meaning of a word by its context
+
+- text is a bag of words
+
+- frequent co-occurrences create meaning
+
+Modern Natural Language processing is Stats/Big Data
 
 
 # Today

@@ -1,7 +1,7 @@
 # Quarto build artifacts
 /.quarto/
 _site/
-*_files/
+#*_files/
 
 # LaTeX temporary files
 *.aux
