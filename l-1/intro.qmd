@@ -35,9 +35,36 @@ jupyter: python3
   
 - neurons and connections are all *weighted*
 
+## Minsky's vision
+
+- the biological neuron is the basis of animal intelligence
+
+- if a human with neurons can learn language then a computer with neurons also should
+
+- neurons underpin *memory,* memory underpins learning  
+
+## Gabriele's vision
+
+- Chatbots are a complex, multi-part Big Data architecture
+
+- neural nets sit at their centre, providing the memory and generation part
+
+- it's all about weights assigned to neural connections: learning is weight refinement
+
 -----
 
-- the neural net *learns* but adjusting its weights to better capture the examples given to *train* it
+- the more neurons/weights there are, the better (1B, 2B ...)
+
+- setting the weights is a big training operation
+
+- so, different from humans, Chatbots have their learning stopped at some point
+
+- long, modular prompts supply a *context* for the generative part 
+
+
+# Further...
+
+- the neural net *learns* by adjusting its weights to better capture the examples given to *train* it
 
 - quantity and quality of the examples impact the weight thus the quality of the learning
 
