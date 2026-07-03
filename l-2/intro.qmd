@@ -1,0 +1,113 @@
+---
+title: "Entropy: a summary"
+lang: en
+author: AP 
+format:
+  revealjs: 
+    theme: solarized
+    css: ../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    # scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://github.com/ale66/learn-genai
+jupyter: python3
+#engine: knitr
+---
+
+# Summary
+
+## Information Entropy
+
+- A numerical measure of the *expected suprise*
+
+- Hard to grasp beyond applying a simple summation formula
+
+- High impact in Engineering, Physics, CS 
+
+## Information Entropy, 2
+
+- For a frequency distribution of $n$ possible words, H is between 0 and $\log n$
+
+- Entropy drives the tokenization of text into *chunkc of characters* 
+
+- tokenisation drives LLM billing
+
+. . .
+
+Next step: look as frequency of *continuation:*
+
+
+How frequently *White* is followed by *House*?
+
+There are $n^2$ cases with huge differences in entropy.
+
+
+# Vasari
+
+
+## Introduction
+
+
+Slides presenting Vasari models
+
+
+## Lab
+
+Let's use LLMs from our laptop
+
+Get to know the Vasari private LLM server
+
+Fork this example notebook:
+
+[colab.research.google.com/drive/1dQNsID--eVmUS_vjZIUxyNDkrvGAhJzm?usp=sharing](https://colab.research.google.com/drive/1dQNsID--eVmUS_vjZIUxyNDkrvGAhJzm?usp=sharing)
+
+
+# LLM and creativity
+
+
+
+## The Agatha Cristhie generator:
+
+
+Thanks to *fine tuning* and careful prompting we can generate fiction in the voice of famous writers
+
+The Agatha Christie expert uses the realdanielbyrne/AgathaChristieText dataset.
+
+Technically, its LoRA emphasises:
+
+    short, clear sentence orchestration,
+    domestic British settings,
+    logical clue structuring,
+    psychological tension in dialogue,
+    pacing constraints consistent with Golden-Age mystery writing.
+
+Its training objective is identical to the Lovecraft expert, ensuring symmetric behaviour and comparable performance characteristics.
+
+[colab.research.google.com/drive/14tMxXR3ssGLcubdp_Lh7xwPoe7dvNZNy?usp=sharing](https://colab.research.google.com/drive/14tMxXR3ssGLcubdp_Lh7xwPoe7dvNZNy?usp=sharing)
+
+
+
+## HP Lovecraft's *Cosmic Horror* generator 
+
+[huggingface.co/theoracle/hplovecraft](https://huggingface.co/theoracle/hplovecraft)
+
+The Lovecraft expert was trained on the TristanBehrens/lovecraftcorpus, representing atmospheric horror, archaic diction, and cosmic dread. Its LoRA learns:
+
+    long, winding sentence structures,
+    “forbidden knowledge” thematic templates,
+    references to geometry, ruins, cults, and unknowable forces,
+    narrative patterns typical of first-person confessional horror.
+
+Since the LoRA is trained purely on text continuation—not instruction templates—it responds strongly and directly to descriptive prompts.
+
