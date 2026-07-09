@@ -1,0 +1,64 @@
+---
+title: "Learn-GenAI: summary"
+lang: en
+author: AP 
+format:
+  revealjs: 
+    theme: solarized
+    css: ../styles/dsta_slides.css
+    slide-number: true
+    slide-level: 2
+    # title-slide-attributes:
+      # data-background-image: ../../styles/bbk-logo.svg
+    code-fold: false
+    echo: true
+    # smaller: true
+    # scrollable: true
+  html:
+    toc: true
+    code-fold: false
+    anchor-sections: true
+    other-links:
+      - text: Class page
+        href: https://github.com/ale66/learn-genai
+jupyter: python3
+#engine: knitr
+---
+
+# Summary
+
+## Artificial Intelligence
+
+- McCarthy: replication of the principles of reasoning with a logical representation and computer reasoning
+
+- Minsky: replication of the neurological architecture (the neural network) and of its decentralisation
+  
+
+## NLP
+
+- only word occurrences count
+
+- neural networks have weighted connections
+
+- weights are initialised at random then refined via *learning:* seeing large text corpora
+
+
+## Information Entropy
+
+- measures over $[0..\log n]$ the expectation of content (surprise) embedded in a frequency distribution
+
+- 
+
+## Further topics
+
+- Vectorisation
+
+- The Ecoder/Decoder idea
+
+- Encoding only: BERT
+
+- fine tuning
+  - low-ranking: LoRa
+  - RAG
+
+- Attention
