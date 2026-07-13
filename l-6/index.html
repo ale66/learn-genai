@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="nlp_entropy_files/libs/clipboard/clipboard.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/tabby.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/popper.min.js"></script>
-<script src="nlp_entropy_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="nlp_entropy_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="nlp_entropy_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="nlp_entropy_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="vectorisation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="vectorisation_files/libs/quarto-html/tabby.min.js"></script>
+<script src="vectorisation_files/libs/quarto-html/popper.min.js"></script>
+<script src="vectorisation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="vectorisation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="vectorisation_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="vectorisation_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="AP">
-  <title>Natural Language Processing with Entropy</title>
+  <title>From words to vectorial spaces</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="vectorisation_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="vectorisation_files/libs/revealjs/dist/reveal.css">
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -32,12 +32,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="nlp_entropy_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
+  <link rel="stylesheet" href="vectorisation_files/libs/revealjs/dist/theme/quarto-1a8385bbf955fbb4448938bc10efacf4.css">
   <link rel="stylesheet" href="../styles/dsta_slides.css">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="nlp_entropy_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="vectorisation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="vectorisation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="vectorisation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="vectorisation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -132,7 +132,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Natural Language Processing with Entropy</h1>
+  <h1 class="title">From words to vectorial spaces</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -143,186 +143,263 @@ AP
 </div>
 
 </section>
-<section id="nlp-and-entropy-measures" class="slide level2">
-<h2>NLP and Entropy measures</h2>
-</section>
-<section id="motivations" class="slide level2">
-<h2>Motivations</h2>
-<p>Today, Natural language processing (NLP) is advancing thanks (mostly) to the deployment of sophisticated Machine Learning (ML)architectures.</p>
-<p>Key enabling factors:</p>
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
+<p>A relatively recent idea:</p>
 <ul>
-<li><p>large corpora which feed extensive training of the ML architectures</p></li>
-<li><p>powerful Graphical Processing Units (GPUs) originally designed for computer graphics/video games</p></li>
-<li><p>Entropy helps in understanding long sentences</p></li>
-<li><p>recent algorithms leverage the position of words in sentences</p></li>
+<li>map words into points of a <em>magical</em> Cartesian space</li>
+<li>apply concepts and knowledge from Geometry/Linear algebra</li>
+<li>obtain inference: complete sentences or find the masked word</li>
 </ul>
-</section>
-<section class="slide level2">
-
-<p>New computational problems are now addressed, e.g.,</p>
-<ul>
-<li><p>given a prompt text, complete the phrase in an intelligible (i.e., human) way.</p></li>
-<li><p>given a text with a missing, masked word in the middle, predict the most likely masked word</p></li>
-</ul>
-<p>Entropy helps us understand and evaluate progress in NL, e.g., in language generation.</p>
-</section>
-<section id="named-entities" class="slide level2">
-<h2>Named entities</h2>
-<p>Suppose, we want to extract Coronavirus symptoms from a stream of Twitter posts dedicated to Covid-19.</p>
-<p>Finding a new symptom is the task of <em>Named Entity Recognition (NER).</em></p>
-
-<img data-src="./imgs/example-fever.png" class="r-stretch"><div class="fragment">
-<p>Formal Definition:</p>
-<p>given a text find all persons, locations and organisations that the text refers to.</p>
-</div>
-</section>
-<section id="more-challenges" class="slide level2">
-<h2>More challenges</h2>
-<p><strong>Language generation (prompt generation)</strong></p>
-<p>given the initial part of a phrase, called <code>prompt</code> give a <em>proper</em> completion of the phrase.</p>
-<p><strong>Question answering</strong></p>
-<p>Given a question in natural language, reply to it <em>properly.</em></p>
-<p>We need a metrics to determine what is <em>proper</em> for a solution.</p>
-</section>
-<section class="slide level2">
-
-<p><strong>Phrase completion</strong></p>
-<p><strong>Instance:</strong> a phrase/sequence of words W</p>
-<p><strong>Solution:</strong> the next word(s) in the phrase.</p>
-<p>We will focus on this problem.</p>
-</section>
-<section id="supervised-ml" class="slide level2">
-<h2>Supervised ML</h2>
-<p>Named entity recognition (and others) are normally addressed by means of a <em>supervised Machine Learning model.</em></p>
-<p>It starts with human, reliable annotation of example texts: the training data.</p>
-
-<img data-src="./imgs/annotation.png" class="r-stretch"></section>
-<section class="slide level2">
-
-<p>If <em>well-trained,</em> the ML model will be capable of predicting the entities in new text.</p>
-
-<!-- ----------- -->
-<img data-src="./imgs/model.png" class="r-stretch"></section>
-<section>
-<section id="phrase-completion" class="title-slide slide level1 center">
-<h1>Phrase Completion</h1>
-
-</section>
-<section id="predicting-the-next-word" class="slide level2">
-<h2>Predicting the next word</h2>
-<p>An algorithm which assigns probabilities to sequences of words is called a <em>language model (LM).</em></p>
-<p>The simplest model assigns probabilities to sentences and sequences of words, the <em>n-gram.</em></p>
-</section>
-<section id="n-gram-models" class="slide level2">
-<h2>N-gram models</h2>
-<p>An n-gram is a sequence of n words:</p>
-<p>2-gram (bigram): “switch off” or ”your homework”</p>
-<p>3-gram (trigram): “please turn your,” or “turn your homework”.</p>
-</section>
-<section class="slide level2">
-
-<p>N-gram prediction is based on probabilities.<br>
-Probs. are extracted from frequencies of co-occurence in corpora.</p>
+<p><span class="math inline">\(v(\textbf{King}) = [0, 0, 0.11, 0, 0.67, 0 \dots ]\)</span></p>
 <div class="fragment">
-<p>This bigram tabled by [Martin-Jufrasky] is a LM in itself</p>
-<p><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf"><img data-src="./imgs/m-j-bigrams.png"></a></p>
+<p><span class="math inline">\(v(\textbf{King}) - v(\textbf{Male}) +  v(\textbf{Female}) \approx  v(\textbf{Queen})\)</span></p>
 </div>
 </section>
-<section id="how-to-evaluate-results" class="slide level2">
-<h2>How to evaluate results</h2>
-<p>N-gram models estimate the probability of the last word of an n-gram given the previous words.</p>
-<p><a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf"><img data-src="./imgs/m-j-bigrams.png"></a></p>
-<p>Which is the best N-gram model? Information Entropy provide answers.</p>
-<!-- --------------- -->
+<section id="roadmap" class="slide level2 scrollable">
+<h2>Roadmap</h2>
+<ol type="1">
+<li><strong>Word vectorization</strong> — turning words into numbers</li>
+<li><strong>Encoder / decoder</strong> — turning a whole sentence into another sentence</li>
+<li><strong>Attention</strong> — letting the model “look back” at the right words</li>
+</ol>
+</section>
+<section>
+<section id="word-vectorization" class="title-slide slide level1 center" data-background-color="#2E7D6B">
+<h1>Word Vectorization</h1>
+
+</section>
+<section id="the-naive-approach-one-hot-encoding" class="slide level2">
+<h2>The naive approach: one-hot encoding</h2>
+<p>Each word in the dictionary is a dimension.</p>
+<ul>
+<li>Vocabulary of 50,000 words → vectorial space of 50,000 dimensions</li>
+<li>Exactly one number is <code>1</code>, all the rest are <code>0</code></li>
+</ul>
+<div class="fragment">
+<p>Enormous spatial representation, even after stemming (swim/swam/swimming/swimmer → <span class="math inline">\(v(\textbf{Swim})\)</span>)</p>
+<p>Uniform word distances: <span class="math inline">\(d(v(\textbf{Cat}), v(\textbf{Kitten})) = d(v(\textbf{Cat}), v(\textbf{Tiger}))\)</span>?</p>
+</div>
+</section>
+<section id="from-sparse-to-dense" class="slide level2">
+<h2>From sparse to dense</h2>
+
+<img data-src="imgs/onehot_vs_dense.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"></section>
+<section id="word-embeddings" class="slide level2">
+<h2>Word embeddings</h2>
+<p>Map all words in a low-dimensional space (b. 100 to 1000) to be <em>learned</em> via <em>training</em></p>
+<p>distance becomes meaningful: closeness = similarity of meaning</p>
+</section>
+<section id="visualizing-the-space" class="slide level2">
+<h2>Visualizing the space</h2>
+
+<img data-src="imgs/embedding_space.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Words about the same topic naturally cluster together — nobody told the model that “king” and “queen” are related. It figured that out from how these words are <em>used</em> in text.</p>
+</section>
+<section id="the-famous-example-vector-arithmetic" class="slide level2">
+<h2>The famous example: vector arithmetic</h2>
+<p>Because meaning is encoded as direction and distance, you can literally do <strong>arithmetic with words</strong>:</p>
+<p><span class="math display">\[\text{king} - \text{man} + \text{woman} \approx \text{queen}\]</span></p>
+
+<img data-src="imgs/word2vec_analogy.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"></section>
+<section id="where-do-these-numbers-come-from" class="slide level2">
+<h2>Where do these numbers come from?</h2>
+<p>You never hand-design them. A model (famous examples: <strong>Word2Vec</strong>, <strong>GloVe</strong>, and later contextual methods) learns embeddings by playing a simple game millions of times over huge amounts of text:</p>
+<div class="fragment">
+<p><strong>“Given the words around a blank, guess the missing word.”</strong></p>
+</div>
+<div class="fragment">
+<p>To get good at this game, the model is forced to notice that “cat” and “dog” fit in similar blanks — and gradually pushes their vectors closer together.</p>
+</div>
+</section>
+<section id="takeaway-word-vectorization" class="slide level2">
+<h2>Takeaway — Word Vectorization</h2>
+<ul>
+<li>Words become <strong>vectors</strong>: short lists of numbers</li>
+<li>Similar meaning → similar vectors → nearby points in space</li>
+<li>This turns “understanding language” into “doing geometry” — something computers are very good at</li>
+<li>But this only handles <strong>individual words</strong>. What about whole sentences?</li>
+</ul>
+</section>
+<section class="slide level2">
+
 </section></section>
 <section>
-<section id="cross-entropy" class="title-slide slide level1 center">
-<h1>Cross Entropy</h1>
+<section id="encoder-decoder" class="title-slide slide level1 center" data-background-color="#B5482B">
+<h1>2. Encoder / Decoder</h1>
 
 </section>
-<section id="approach" class="slide level2">
-<h2>Approach</h2>
-<p>Let’s consider N-grams.</p>
-<p>What is the best N-gram model for predicting the next word of a sequence W?</p>
-<p>Information theory provides an abstract yet effective tool to evaluate the quality of solutions (against some test data).</p>
+<section id="from-words-to-sentences" class="slide level2">
+<h2>From words to sentences</h2>
+<p>Once each word is a vector, a new question appears:</p>
+<blockquote>
+<p>How does a model read a <strong>whole sentence</strong> and produce a <strong>whole different sentence</strong> — like translating English to Italian, or summarizing a paragraph?</p>
+</blockquote>
+<p>The answer that dominated the field for several years: the <strong>encoder–decoder</strong> architecture.</p>
 </section>
-<section id="preliminaries" class="slide level2">
-<h2>Preliminaries</h2>
-<p>Let P(i) and Q(i) be two prob. distributions drawn from the same underlying set of <span class="math inline">\(n\)</span> possible <em>outcomes:</em> <span class="math inline">\(X=\{x_1, \dots x_n\}\)</span>.</p>
-<p>Let P(i) be the current distribution: the text to be evaluated.</p>
-<p>Let Q(i) be the <em>reference distribution,</em> given by the model (trained on the whole corpus).</p>
-<p>The cross-entropy <span class="math inline">\(H(P, Q)\)</span> is defined as</p>
-<p><span class="math display">\[H(P,Q) = -\sum_{i=1}^{n}p(x_{i}) \log q(x_{i})\]</span></p>
+<section id="the-two-halves" class="slide level2">
+<h2>The two halves</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="encoder">Encoder</h3>
+<p>Reads the entire input, one word at a time, and compresses everything it has read into a single summary.</p>
+</div><div class="column" style="width:50%;">
+<h3 id="decoder">Decoder</h3>
+<p>Starts from that summary and generates the output, one word at a time, each new word informed by the ones it already produced.</p>
+</div></div>
 </section>
-<section id="perplexity" class="slide level2">
-<h2>Perplexity</h2>
-<p>Cross-entropy: <span class="math inline">\(H(P,Q) = -\sum_{i=1}^{n}p(x_{i}) \log q(x_{i})\)</span></p>
-<div class="fragment">
-<p>Perplexity: <span class="math inline">\(PP(H, Q)= 2^{H(P, Q)}.\)</span></p>
-<p>A lower perplexity indicates a better model.</p>
-</div>
-</section>
-<section id="computing-perplexity" class="slide level2">
-<h2>Computing perplexity</h2>
-<p>Large-scale NLP models provide a convenient approximation</p>
-<p>Let <span class="math inline">\(W = w_1, \dots, w_N\)</span> be the phrase at hand.</p>
-<p>For each word occurence <span class="math inline">\(w_i\)</span>, the model assigns a prob. <span class="math inline">\(P(w_i)\)</span>.</p>
-<p>Now, Entropy approximates the cross-entropy of W:</p>
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log P(W)\)</span></p>
-<div class="fragment">
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log \Pi_{i=1}^{N} P(w_i)\)</span></p>
-</div>
-</section>
-<section id="perplexity-in-action" class="slide level2">
-<h2>Perplexity in action</h2>
+<section id="the-architecture" class="slide level2">
+<h2>The architecture</h2>
 
-<img data-src="./imgs/lm.png" class="r-stretch"><p>What is the perplexity of the following test sentence (notice grammar)?</p>
-<p>W = <code>prime corona symptom is fever and cough</code></p>
+<img data-src="imgs/encoder_decoder_diagram.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="the-context-vector" class="slide level2">
+<h2>The context vector</h2>
+<p>Everything the encoder learns about the input sentence gets squeezed into <strong>one fixed-size vector</strong> — often called the <strong>context vector</strong> or “thought vector.”</p>
+<ul>
+<li>Think of it as the encoder’s best attempt at a <strong>summary</strong> of the whole sentence</li>
+<li>The decoder never sees the original words again — only this summary</li>
+</ul>
+<div class="fragment">
+<p>This is elegant… but it is also the architecture’s biggest weakness.</p>
+</div>
+</section>
+<section id="the-bottleneck-problem" class="slide level2">
+<h2>The bottleneck problem</h2>
+<p>Imagine reading a 40-word sentence, then closing the book and having to translate it from memory of <strong>one single mental snapshot</strong>.</p>
+<div class="fragment">
+<ul>
+<li>Short sentences: fine</li>
+<li>Long sentences: information gets lost — the summary is simply too small to hold everything</li>
+</ul>
+</div>
+<div class="fragment">
+<p>This is exactly what researchers observed: encoder–decoder translation quality dropped sharply as sentences got longer.</p>
+</div>
+</section>
+<section id="takeaway-encoder-decoder" class="slide level2">
+<h2>Takeaway — Encoder / Decoder</h2>
+<ul>
+<li><strong>Encoder</strong>: reads input → produces a compressed summary</li>
+<li><strong>Decoder</strong>: unpacks that summary into the output, word by word</li>
+<li>Works well for short sequences</li>
+<li>Struggles with long ones — because everything is forced through a single fixed-size bottleneck</li>
+<li>We need a way for the decoder to <strong>look back</strong> at specific input words instead of relying only on the summary</li>
+</ul>
 </section>
 <section class="slide level2">
 
-<p>W = <code>prime corona symptom is fever and cough</code></p>
-<p>W is now our P distribution</p>
+</section></section>
+<section>
+<section id="the-attention-mechanism" class="title-slide slide level1 center" data-background-color="#C79A2E">
+<h1>3. The Attention Mechanism</h1>
 
-<img data-src="./imgs/lm.png" class="r-stretch"><p><span class="math inline">\(\frac{1}{N}=\frac{1}{7}\)</span></p>
-<p><span class="math inline">\(P(W) = \Pi_{i=1}^{N} P(w_i) = 1 \times 1 \times 1 \times 1 \times 0.33 \times 1 \times 1 =0.33\)</span></p>
+</section>
+<section id="the-fix-stop-forcing-everything-through-one-summary" class="slide level2">
+<h2>The fix: stop forcing everything through one summary</h2>
+<p>Instead of relying only on the final context vector, <strong>attention</strong> lets the decoder look back at <em>every</em> word of the input, every time it generates a new output word — and decide <strong>which ones matter right now</strong>.</p>
+<div class="fragment">
+<p>Analogy: instead of translating from a single memorized summary, you keep the original sentence in front of you and glance back at the relevant part each time you write the next word.</p>
+</div>
+</section>
+<section id="how-it-works-conceptually" class="slide level2 scrollable">
+<h2>How it works, conceptually</h2>
+<p>For every word the decoder is about to produce, attention:</p>
+<ol type="1">
+<li>Compares the decoder’s current state to <strong>every</strong> input word</li>
+<li>Assigns each input word a <strong>relevance score</strong> — how useful is this word right now?</li>
+<li>Turns those scores into weights that add up to 1 (a probability distribution)</li>
+<li>Builds a <strong>custom summary</strong>, weighted toward the most relevant input words, and uses it to produce the next output word</li>
+</ol>
+</section>
+<section id="attention-in-action" class="slide level2">
+<h2>Attention in action</h2>
+
+<img data-src="imgs/attention_flow.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>When producing the Italian word for “sat,” the model pays most attention to “sat” in the input — with a little attention on “cat” for grammatical agreement, and almost none on the rest.</p>
+</section>
+<section id="seeing-the-weights-directly" class="slide level2">
+<h2>Seeing the weights directly</h2>
+<p>Attention weights can be visualized as a grid: one row per output word, one column per input word, brightness = how much attention was paid.</p>
+
+<img data-src="imgs/attention_heatmap.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><p>Notice the pattern roughly follows the diagonal — each output word mostly attends to the corresponding input word — but not always: word order can differ between languages.</p>
+</section>
+<section id="why-this-matters" class="slide level2">
+<h2>Why this matters</h2>
+<ul>
+<li><strong>No more single bottleneck</strong> — the decoder has access to the <em>entire</em> input at every step, not just one fixed summary</li>
+<li><strong>Much better on long sentences</strong> — relevant information doesn’t have to survive a single compression step</li>
+<li><strong>Interpretability bonus</strong> — attention weights give a rough picture of <em>what the model is “looking at”</em>, which is part of why they became popular for understanding model behavior</li>
+</ul>
+<div class="fragment">
+<p>Attention turned out to be so useful that researchers eventually asked: <em>“What if attention is all we need — no encoder/decoder recurrence required?”</em> That question led to the <strong>Transformer</strong> architecture, which powers most modern language models — a story for another day.</p>
+</div>
+</section>
+<section id="takeaway-attention" class="slide level2">
+<h2>Takeaway — Attention</h2>
+<ul>
+<li>Lets a model <strong>selectively focus</strong> on the most relevant parts of the input for each part of the output</li>
+<li>Solves the bottleneck problem of plain encoder–decoder models</li>
+<li>The foundation underneath modern large language models</li>
+</ul>
 </section>
 <section class="slide level2">
 
-<p>Let’s compute the Cross entropy of W:</p>
-<p><span class="math inline">\(H(W) \approx - \frac{1}{N} \log \Pi_{i=1}^{N} P(w_i)\)</span></p>
+</section></section>
+<section>
+<section id="putting-it-all-together" class="title-slide slide level1 center" data-background-color="#2E3A46">
+<h1>Putting it all together</h1>
+
+</section>
+<section id="the-three-ideas-connected" class="slide level2">
+<h2>The three ideas, connected</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Idea</th>
+<th>Question it answers</th>
+<th>Key limitation it solves</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Word vectorization</strong></td>
+<td>How do we represent a <em>word</em> as numbers?</td>
+<td>Raw text isn’t numeric; one-hot vectors ignore similarity</td>
+</tr>
+<tr class="even">
+<td><strong>Encoder / decoder</strong></td>
+<td>How do we turn a <em>sentence</em> into another sentence?</td>
+<td>Individual word vectors alone don’t capture sequence meaning</td>
+</tr>
+<tr class="odd">
+<td><strong>Attention</strong></td>
+<td>Which <em>parts</em> of the input matter for each part of the output?</td>
+<td>Fixed-size summaries lose information on long inputs</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="in-one-picture" class="slide level2 scrollable">
+<h2>In one picture</h2>
+<ol type="1">
+<li><strong>Vectorization</strong> gives words meaningful numbers</li>
+<li><strong>Encoder/decoder</strong> strings those numbers into full sentences, in and out</li>
+<li><strong>Attention</strong> lets the decoder focus on the right words at the right time, instead of relying on one compressed summary</li>
+</ol>
 <div class="fragment">
-<p><span class="math inline">\(H(W) = -\frac{1}{7}\cdot \log(1\cdot 1 \cdot 1 \cdot 1 \cdot 0.33 \cdot 1 \cdot 1 )\)</span></p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(H(W) = -\frac{1}{7} \cdot (-0.625) = 0.089\)</span></p>
-<p><span class="math inline">\(PP(W) = 2^{H(W)} = 2^{0.089} = 1.063\)</span></p>
+<p>Together, these three ideas are the conceptual backbone behind machine translation, chatbots, and most of what people currently call “AI language models.”</p>
 </div>
 </section>
-<section id="mastering-perplexity" class="slide level2">
-<h2>Mastering perplexity</h2>
-<p><span class="math inline">\(H(W)\)</span> is the average number of bits needed to encode each word.</p>
-<p><span class="math inline">\(P(W)=2^{H(W)}\)</span> is the average number of words that can be encoded using H(W) bits.</p>
+<section id="questions" class="slide level2">
+<h2>Questions?</h2>
+<p>Thank you!</p>
 <div class="fragment">
-<p><strong>However…</strong></p>
+<p><em>Next steps, if you’re curious:</em> look up <strong>Word2Vec</strong>, <strong>the original encoder–decoder translation paper (Sutskever et al., 2014)</strong>, and <strong>“Attention Is All You Need” (Vaswani et al., 2017)</strong> — the paper that introduced the Transformer.</p>
 </div>
-</section>
-<section class="slide level2">
 
-<p>We interpret perplexity as a weighted branching factor for the possible completions of W.</p>
-<p>If PP=1 there is no doubt on what the next word should be.</p>
-<p>If PP=100 then whenever the model is trying to guess the next word it is as confused as if it had to pick between 100 words.</p>
-</section>
-<section class="slide level2">
-
-<p>W = <code>I study at Milan...</code></p>
-<p>which is the next likely word?</p>
-<div class="fragment">
-<p><span class="math inline">\(M_1\)</span>: <code>University</code></p>
-<p>with perplexity 3: <code>Polytechnic</code> and <code>Bicocca</code> are also highly probable completions.</p>
-<p><span class="math inline">\(M_2\)</span>: <code>Conservatory</code> or <code>Fine Arts Academy</code> with perplexity 2…</p>
-
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -332,19 +409,19 @@ Probs. are extracted from frequencies of co-occurence in corpora.</p>
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="nlp_entropy_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="vectorisation_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="nlp_entropy_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="nlp_entropy_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="nlp_entropy_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="vectorisation_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

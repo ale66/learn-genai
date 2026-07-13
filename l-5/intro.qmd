@@ -47,13 +47,12 @@ jupyter: python3
 
 - measures over $[0..\log n]$ the expectation of content (surprise) embedded in a frequency distribution
 
-- 
 
 ## Further topics
 
 - Vectorisation
 
-- The Ecoder/Decoder idea
+- The Encoder/Decoder architectural view
 
 - Encoding only: BERT
 
@@ -61,4 +60,4 @@ jupyter: python3
   - low-ranking: LoRa
   - RAG
 
-- Attention
+- the attention mechanism

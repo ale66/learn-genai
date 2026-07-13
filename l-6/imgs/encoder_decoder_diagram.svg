@@ -1,0 +1,61 @@
+<svg viewBox="0 0 960 380" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="960" height="380" fill="white"/>
+
+  <!-- Input words -->
+  <g font-size="15" fill="#222222" text-anchor="middle">
+    <rect x="20"  y="150" width="70" height="40" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="55" y="175">The</text>
+    <rect x="100" y="150" width="70" height="40" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="135" y="175">cat</text>
+    <rect x="180" y="150" width="70" height="40" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="215" y="175">sat</text>
+  </g>
+
+  <!-- Arrows into encoder -->
+  <path d="M 260 170 L 320 170" stroke="#999999" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Encoder box -->
+  <rect x="330" y="90" width="150" height="200" rx="10" fill="#2E7D6B" opacity="0.15" stroke="#2E7D6B" stroke-width="2"/>
+  <text x="405" y="70" font-size="17" font-weight="bold" fill="#2E7D6B" text-anchor="middle">ENCODER</text>
+  <text x="405" y="200" font-size="13" fill="#1f5c4f" text-anchor="middle">reads the</text>
+  <text x="405" y="220" font-size="13" fill="#1f5c4f" text-anchor="middle">whole input</text>
+  <text x="405" y="240" font-size="13" fill="#1f5c4f" text-anchor="middle">and builds</text>
+  <text x="405" y="260" font-size="13" fill="#1f5c4f" text-anchor="middle">meaning</text>
+
+  <!-- Arrow into context vector -->
+  <path d="M 480 190 L 545 190" stroke="#999999" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Context vector -->
+  <g transform="translate(555,150)">
+    <circle cx="40" cy="40" r="45" fill="#C79A2E" opacity="0.25" stroke="#C79A2E" stroke-width="2.5"/>
+    <text x="40" y="35" font-size="13" font-weight="bold" fill="#8a6a1f" text-anchor="middle">context</text>
+    <text x="40" y="52" font-size="13" font-weight="bold" fill="#8a6a1f" text-anchor="middle">vector</text>
+  </g>
+
+  <!-- Arrow into decoder -->
+  <path d="M 645 190 L 705 190" stroke="#999999" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Decoder box -->
+  <rect x="715" y="90" width="150" height="200" rx="10" fill="#B5482B" opacity="0.15" stroke="#B5482B" stroke-width="2"/>
+  <text x="790" y="70" font-size="17" font-weight="bold" fill="#B5482B" text-anchor="middle">DECODER</text>
+  <text x="790" y="200" font-size="13" fill="#8a3620" text-anchor="middle">generates</text>
+  <text x="790" y="220" font-size="13" fill="#8a3620" text-anchor="middle">the output,</text>
+  <text x="790" y="240" font-size="13" fill="#8a3620" text-anchor="middle">one word</text>
+  <text x="790" y="260" font-size="13" fill="#8a3620" text-anchor="middle">at a time</text>
+
+  <!-- Output words below decoder -->
+  <g font-size="15" fill="#222222" text-anchor="middle">
+    <rect x="700" y="320" width="70" height="40" rx="6" fill="#FBEDE8" stroke="#B5482B"/>
+    <text x="735" y="345">Il</text>
+    <rect x="780" y="320" width="90" height="40" rx="6" fill="#FBEDE8" stroke="#B5482B"/>
+    <text x="825" y="345">gatto</text>
+  </g>
+  <path d="M 760 300 L 745 320" stroke="#999999" stroke-width="2" marker-end="url(#arrow2)"/>
+  <path d="M 800 300 L 815 320" stroke="#999999" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#999999"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,45 @@
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="900" height="320" fill="white"/>
+
+  <text x="450" y="35" font-size="17" font-weight="bold" fill="#222222" text-anchor="middle">
+    Generating "sedette" (sat) — where should attention focus?
+  </text>
+
+  <!-- Input row (encoder words) -->
+  <g font-size="15" fill="#222222" text-anchor="middle">
+    <rect x="60"  y="80" width="80" height="42" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="100" y="106">The</text>
+    <rect x="170" y="80" width="80" height="42" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="210" y="106">cat</text>
+    <rect x="280" y="80" width="80" height="42" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="320" y="106">sat</text>
+    <rect x="390" y="80" width="80" height="42" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="430" y="106">on</text>
+    <rect x="500" y="80" width="80" height="42" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="540" y="106">the</text>
+    <rect x="610" y="80" width="80" height="42" rx="6" fill="#E8F1EE" stroke="#2E7D6B"/>
+    <text x="650" y="106">mat</text>
+  </g>
+
+  <!-- Output word (decoder) -->
+  <rect x="330" y="230" width="110" height="46" rx="6" fill="#FBEDE8" stroke="#B5482B" stroke-width="2"/>
+  <text x="385" y="258" font-size="16" fill="#8a3620" text-anchor="middle" font-weight="bold">sedette</text>
+
+  <!-- Attention lines: thickness/opacity encodes weight -->
+  <!-- The: low -->
+  <line x1="100" y1="122" x2="385" y2="230" stroke="#B5482B" stroke-width="1.5" opacity="0.25"/>
+  <!-- cat: medium -->
+  <line x1="210" y1="122" x2="385" y2="230" stroke="#B5482B" stroke-width="5" opacity="0.55"/>
+  <!-- sat: high (main source) -->
+  <line x1="320" y1="122" x2="385" y2="230" stroke="#B5482B" stroke-width="9" opacity="0.9"/>
+  <!-- on: low -->
+  <line x1="430" y1="122" x2="385" y2="230" stroke="#B5482B" stroke-width="1.5" opacity="0.2"/>
+  <!-- the: low -->
+  <line x1="540" y1="122" x2="385" y2="230" stroke="#B5482B" stroke-width="1.5" opacity="0.15"/>
+  <!-- mat: low -->
+  <line x1="650" y1="122" x2="385" y2="230" stroke="#B5482B" stroke-width="1.5" opacity="0.15"/>
+
+  <text x="450" y="300" font-size="13" fill="#666666" text-anchor="middle" font-style="italic">
+    Thicker, darker lines = more attention paid to that input word
+  </text>
+</svg>
