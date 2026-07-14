@@ -33,6 +33,9 @@ jupyter: python3
 
 - Minsky: replication of the neurological architecture (the neural network) and of its decentralisation
   
+Generative AI applies Minsky's approach with a neural network at its core
+
+
 
 ## NLP
 
@@ -40,12 +43,14 @@ jupyter: python3
 
 - neural networks have weighted connections
 
-- weights are initialised at random then refined via *learning:* seeing large text corpora
+- NNs and most Gen AI solutions start with a random weights allocation and require training to refine weights and become effective
 
 
 ## Information Entropy
 
-- measures over $[0..\log n]$ the expectation of content (surprise) embedded in a frequency distribution
+- measures over $[0..\log n]$ the expectation of content (surprise) embedded in a word frequency distribution
+
+- *perplexity* an entropy-based measure of possible phrase continuations
 
 
 ## Further topics
@@ -61,3 +66,18 @@ jupyter: python3
   - RAG
 
 - the attention mechanism
+
+
+## Lecture plan
+
+- Entropy-based NLP; phrase continuations and perplexity
+
+- Notebook: LoRa/fine-tuning for visual and narrative voices
+  
+- Vectorisation
+
+- Notebook: build your own RAG
+
+- An introduction to attention
+
+- Notebook: the attention mechanism

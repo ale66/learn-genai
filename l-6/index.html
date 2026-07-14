@@ -187,37 +187,39 @@ AP
 <img data-src="imgs/onehot_vs_dense.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"></section>
 <section id="word-embeddings" class="slide level2">
 <h2>Word embeddings</h2>
-<p>Map all words in a low-dimensional space (b. 100 to 1000) to be <em>learned</em> via <em>training</em></p>
+<p>Map all words in a low-dimensional space (could run up to 1000) to be <em>learned</em> via <em>training</em></p>
 <p>distance becomes meaningful: closeness = similarity of meaning</p>
 </section>
 <section id="visualizing-the-space" class="slide level2">
 <h2>Visualizing the space</h2>
 
-<img data-src="imgs/embedding_space.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Words about the same topic naturally cluster together — nobody told the model that “king” and “queen” are related. It figured that out from how these words are <em>used</em> in text.</p>
+<img data-src="imgs/embedding_space.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>by processing many instances of <em>King</em> and <em>Queen</em> in same/similar contexts, the vectorisation mapping <em>learns</em> that the two are related.</p>
+<p>This is a form of <strong>training</strong></p>
 </section>
-<section id="the-famous-example-vector-arithmetic" class="slide level2">
-<h2>The famous example: vector arithmetic</h2>
+<section id="vector-arithmetic" class="slide level2">
+<h2>Vector arithmetic</h2>
 <p>Because meaning is encoded as direction and distance, you can literally do <strong>arithmetic with words</strong>:</p>
-<p><span class="math display">\[\text{king} - \text{man} + \text{woman} \approx \text{queen}\]</span></p>
+<p><span class="math inline">\(v(\textbf{King}) - v(\textbf{Male}) +  v(\textbf{Female}) \approx  v(\textbf{Queen})\)</span></p>
 
 <img data-src="imgs/word2vec_analogy.png" class="quarto-figure quarto-figure-center r-stretch" style="width:72.0%"></section>
-<section id="where-do-these-numbers-come-from" class="slide level2">
-<h2>Where do these numbers come from?</h2>
-<p>You never hand-design them. A model (famous examples: <strong>Word2Vec</strong>, <strong>GloVe</strong>, and later contextual methods) learns embeddings by playing a simple game millions of times over huge amounts of text:</p>
+<section id="weight-convergence" class="slide level2">
+<h2>Weight convergence</h2>
+<p>Vectorisation software, e.g., <strong>Word2Vec</strong> learns embeddings by trying to improve its score on a simple guessing game, but millions of times:</p>
 <div class="fragment">
-<p><strong>“Given the words around a blank, guess the missing word.”</strong></p>
+<p><strong>“Given the words around a blank, guess the missing word from the actual text.”</strong></p>
 </div>
 <div class="fragment">
-<p>To get good at this game, the model is forced to notice that “cat” and “dog” fit in similar blanks — and gradually pushes their vectors closer together.</p>
+<p>the vectoriser is forced to notice that “cat” and “kitten” fit in similar blanks — and gradually pushes their vectors closer together.</p>
 </div>
 </section>
-<section id="takeaway-word-vectorization" class="slide level2">
-<h2>Takeaway — Word Vectorization</h2>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
 <ul>
-<li>Words become <strong>vectors</strong>: short lists of numbers</li>
-<li>Similar meaning → similar vectors → nearby points in space</li>
-<li>This turns “understanding language” into “doing geometry” — something computers are very good at</li>
-<li>But this only handles <strong>individual words</strong>. What about whole sentences?</li>
+<li><p>words become <strong>vectors</strong> in a hyperspace</p></li>
+<li><p>similar meaning → similar vectors → nearby points in space</p></li>
+<li><p>word meanings are now a geometric fact</p></li>
+<li><p>a v. only handles <strong>individual words,</strong> what about whole sentences?</p></li>
+<li><p>examples: <strong>Word2Vec</strong> and <strong>GloVe</strong></p></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -230,11 +232,11 @@ AP
 </section>
 <section id="from-words-to-sentences" class="slide level2">
 <h2>From words to sentences</h2>
-<p>Once each word is a vector, a new question appears:</p>
+<p>After word vectorization, a new topic:</p>
 <blockquote>
-<p>How does a model read a <strong>whole sentence</strong> and produce a <strong>whole different sentence</strong> — like translating English to Italian, or summarizing a paragraph?</p>
+<p>How can a software process a <strong>whole sentence</strong> and produce a <strong>whole different sentence</strong> — like translating English to Italian, or summarizing a paragraph?</p>
 </blockquote>
-<p>The answer that dominated the field for several years: the <strong>encoder–decoder</strong> architecture.</p>
+<p>the <strong>encoder–decoder</strong> architecture</p>
 </section>
 <section id="the-two-halves" class="slide level2">
 <h2>The two halves</h2>
@@ -247,57 +249,46 @@ AP
 <p>Starts from that summary and generates the output, one word at a time, each new word informed by the ones it already produced.</p>
 </div></div>
 </section>
-<section id="the-architecture" class="slide level2">
-<h2>The architecture</h2>
+<section id="the-ed-architecture" class="slide level2">
+<h2>The E/D architecture</h2>
 
 <img data-src="imgs/encoder_decoder_diagram.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
 <section id="the-context-vector" class="slide level2">
 <h2>The context vector</h2>
-<p>Everything the encoder learns about the input sentence gets squeezed into <strong>one fixed-size vector</strong> — often called the <strong>context vector</strong> or “thought vector.”</p>
+<p>Everything the encoder learns about the input sentence is mapped into a fixed-size vector — often called the <strong>context vector</strong> or “thought vector.”</p>
 <ul>
-<li>Think of it as the encoder’s best attempt at a <strong>summary</strong> of the whole sentence</li>
-<li>The decoder never sees the original words again — only this summary</li>
+<li><p>the encoder <em>summarises</em> the whole sentence, including its order, into the context vector. sentence</p></li>
+<li><p>The decoder never sees the original words again — only the context vector</p></li>
+<li><p>the context vector is a representation that is <em>abstract</em> from both Italian and English</p></li>
+<li><p>limitation: the decoder has no access to the original words/sentence</p></li>
 </ul>
-<div class="fragment">
-<p>This is elegant… but it is also the architecture’s biggest weakness.</p>
-</div>
 </section>
-<section id="the-bottleneck-problem" class="slide level2">
-<h2>The bottleneck problem</h2>
+<section id="the-bottleneck-effect" class="slide level2">
+<h2>The bottleneck effect</h2>
+<ul>
+<li><p>a short sentence is likely to described a single concept: E/D is able to recognise and translate it</p></li>
+<li><p>short sentences carry too much information for the fixed-size context vector</p></li>
+<li><p>encoder–decoder translation quality drops as sentences got longer</p></li>
+</ul>
 <p>Imagine reading a 40-word sentence, then closing the book and having to translate it from memory of <strong>one single mental snapshot</strong>.</p>
-<div class="fragment">
-<ul>
-<li>Short sentences: fine</li>
-<li>Long sentences: information gets lost — the summary is simply too small to hold everything</li>
-</ul>
-</div>
-<div class="fragment">
-<p>This is exactly what researchers observed: encoder–decoder translation quality dropped sharply as sentences got longer.</p>
-</div>
-</section>
-<section id="takeaway-encoder-decoder" class="slide level2">
-<h2>Takeaway — Encoder / Decoder</h2>
-<ul>
-<li><strong>Encoder</strong>: reads input → produces a compressed summary</li>
-<li><strong>Decoder</strong>: unpacks that summary into the output, word by word</li>
-<li>Works well for short sequences</li>
-<li>Struggles with long ones — because everything is forced through a single fixed-size bottleneck</li>
-<li>We need a way for the decoder to <strong>look back</strong> at specific input words instead of relying only on the summary</li>
-</ul>
+<p>What if the D. would <strong>look back</strong> at specific input words to adjust its translation?</p>
 </section>
 <section class="slide level2">
 
 </section></section>
 <section>
 <section id="the-attention-mechanism" class="title-slide slide level1 center" data-background-color="#C79A2E">
-<h1>3. The Attention Mechanism</h1>
+<h1>The Attention Mechanism</h1>
 
 </section>
 <section id="the-fix-stop-forcing-everything-through-one-summary" class="slide level2">
 <h2>The fix: stop forcing everything through one summary</h2>
-<p>Instead of relying only on the final context vector, <strong>attention</strong> lets the decoder look back at <em>every</em> word of the input, every time it generates a new output word — and decide <strong>which ones matter right now</strong>.</p>
+<p>Instead of relying only on the final context vector, <strong>attention</strong> lets the decoder look back at <em>every</em> word of the input, every time it generates a new output word — and decide <strong>which ones matter most for translation at hand</strong></p>
+<ul>
+<li>such information might come from words that are distant from the sentence being translated, or even past the sentence</li>
+</ul>
 <div class="fragment">
-<p>Analogy: instead of translating from a single memorized summary, you keep the original sentence in front of you and glance back at the relevant part each time you write the next word.</p>
+<p>Analogy: instead of translating from a single memorized summary, keep the original sentence in front and glance back at the relevant part each time you write the next word.</p>
 </div>
 </section>
 <section id="how-it-works-conceptually" class="slide level2 scrollable">
@@ -313,35 +304,36 @@ AP
 <section id="attention-in-action" class="slide level2">
 <h2>Attention in action</h2>
 
-<img data-src="imgs/attention_flow.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>When producing the Italian word for “sat,” the model pays most attention to “sat” in the input — with a little attention on “cat” for grammatical agreement, and almost none on the rest.</p>
+<img data-src="imgs/attention_flow.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"><p>To translate “sat,” the attention model pays most attention to “sat” in the input — with a little attention on “cat” for grammatical agreement, and almost none on the rest</p>
 </section>
 <section id="seeing-the-weights-directly" class="slide level2">
 <h2>Seeing the weights directly</h2>
 <p>Attention weights can be visualized as a grid: one row per output word, one column per input word, brightness = how much attention was paid.</p>
 
-<img data-src="imgs/attention_heatmap.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><p>Notice the pattern roughly follows the diagonal — each output word mostly attends to the corresponding input word — but not always: word order can differ between languages.</p>
+<img data-src="imgs/attention_heatmap.png" class="quarto-figure quarto-figure-center r-stretch" style="width:62.0%"><p>A fixed, word-by-word translation would correspond to the unit (‘eye’) matrix</p>
 </section>
-<section id="why-this-matters" class="slide level2">
-<h2>Why this matters</h2>
+<section id="observations" class="slide level2">
+<h2>Observations</h2>
 <ul>
-<li><strong>No more single bottleneck</strong> — the decoder has access to the <em>entire</em> input at every step, not just one fixed summary</li>
-<li><strong>Much better on long sentences</strong> — relevant information doesn’t have to survive a single compression step</li>
-<li><strong>Interpretability bonus</strong> — attention weights give a rough picture of <em>what the model is “looking at”</em>, which is part of why they became popular for understanding model behavior</li>
+<li><strong>No more single bottleneck</strong> — the decoder has access to the <em>entire</em> input at every step, not just the fixed summary (context) vector</li>
+<li><strong>Much better on long sentences</strong> — relevant words that are distant in the text are not compressed into the context vector</li>
+<li><strong>Interpretability</strong> — attention weights give a rough picture of <em>what the model is “looking at”</em></li>
 </ul>
-<div class="fragment">
-<p>Attention turned out to be so useful that researchers eventually asked: <em>“What if attention is all we need — no encoder/decoder recurrence required?”</em> That question led to the <strong>Transformer</strong> architecture, which powers most modern language models — a story for another day.</p>
-</div>
 </section>
-<section id="takeaway-attention" class="slide level2">
-<h2>Takeaway — Attention</h2>
+<section id="attention-is-all-you-need" class="slide level2 scrollable">
+<h2>Attention is all you need</h2>
 <ul>
-<li>Lets a model <strong>selectively focus</strong> on the most relevant parts of the input for each part of the output</li>
+<li>for large-scale attention training, encoder/decoder is not needed anymore</li>
+<li><ol type="a">
+<li><strong>selectively focus</strong> on the most relevant parts of the input for each part of the output</li>
+</ol></li>
 <li>Solves the bottleneck problem of plain encoder–decoder models</li>
-<li>The foundation underneath modern large language models</li>
+<li>less intriguing than E/D but more interpretable</li>
 </ul>
 </section>
 <section class="slide level2">
 
+<p><a href="https://arxiv.org/abs/1706.03762"><img data-src="./imgs/attention-article.jpg"></a></p>
 </section></section>
 <section>
 <section id="putting-it-all-together" class="title-slide slide level1 center" data-background-color="#2E3A46">
@@ -385,19 +377,12 @@ AP
 <section id="in-one-picture" class="slide level2 scrollable">
 <h2>In one picture</h2>
 <ol type="1">
-<li><strong>Vectorization</strong> gives words meaningful numbers</li>
-<li><strong>Encoder/decoder</strong> strings those numbers into full sentences, in and out</li>
-<li><strong>Attention</strong> lets the decoder focus on the right words at the right time, instead of relying on one compressed summary</li>
+<li><p><strong>Vectorization</strong> embeds words into hyper-dimensional spaces: Geometry applies</p></li>
+<li><p><strong>Encoder/decoder</strong> sentences are mapped into/out of a latent space</p></li>
+<li><p><strong>Attention</strong> lets the decoder inspect the lexical context, both before and after the word in consideration</p></li>
 </ol>
 <div class="fragment">
-<p>Together, these three ideas are the conceptual backbone behind machine translation, chatbots, and most of what people currently call “AI language models.”</p>
-</div>
-</section>
-<section id="questions" class="slide level2">
-<h2>Questions?</h2>
-<p>Thank you!</p>
-<div class="fragment">
-<p><em>Next steps, if you’re curious:</em> look up <strong>Word2Vec</strong>, <strong>the original encoder–decoder translation paper (Sutskever et al., 2014)</strong>, and <strong>“Attention Is All You Need” (Vaswani et al., 2017)</strong> — the paper that introduced the Transformer.</p>
+<p>Chatbots, and most “AI language models.” are attention</p>
 </div>
 
 </section></section>

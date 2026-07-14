@@ -71,14 +71,13 @@ Enormous spatial representation, even after stemming (swim/swam/swimming/swimmer
 Uniform word distances:  $d(v(\textbf{Cat}), v(\textbf{Kitten})) = d(v(\textbf{Cat}), v(\textbf{Tiger}))$?
 
 
-
 ## From sparse to dense
 
 ![](imgs/onehot_vs_dense.svg){fig-align="center" width="95%"}
 
 ## Word embeddings
 
-Map all words in a low-dimensional space (b. 100 to 1000) to be *learned* via *training*
+Map all words in a low-dimensional space (could run up to 1000) to be *learned* via *training*
 
 distance becomes meaningful: closeness = similarity of meaning
 
@@ -87,42 +86,44 @@ distance becomes meaningful: closeness = similarity of meaning
 
 ![](imgs/embedding_space.png){fig-align="center" width="80%"}
 
-Words about the same topic naturally cluster together — nobody told the
-model that "king" and "queen" are related. It figured that out from how
-these words are *used* in text.
+by processing many instances of *King* and *Queen* in same/similar contexts, the vectorisation mapping *learns* that the two are related. 
 
-## The famous example: vector arithmetic
+This is a form of __training__
+
+
+## Vector arithmetic
 
 Because meaning is encoded as direction and distance, you can literally do
 **arithmetic with words**:
 
-$$\text{king} - \text{man} + \text{woman} \approx \text{queen}$$
+$v(\textbf{King}) - v(\textbf{Male}) +  v(\textbf{Female}) \approx  v(\textbf{Queen})$
 
 ![](imgs/word2vec_analogy.png){fig-align="center" width="72%"}
 
-## Where do these numbers come from?
 
-You never hand-design them. A model (famous examples: **Word2Vec**,
-**GloVe**, and later contextual methods) learns embeddings by playing a
-simple game millions of times over huge amounts of text:
+## Weight convergence
+
+Vectorisation software, e.g., **Word2Vec** learns embeddings by trying to improve its score on a simple
+guessing game, but millions of times:
 
 ::: {.fragment}
-**"Given the words around a blank, guess the missing word."**
+**"Given the words around a blank, guess the missing word from the actual text."**
 :::
 
 ::: {.fragment}
-To get good at this game, the model is forced to notice that "cat" and
-"dog" fit in similar blanks — and gradually pushes their vectors closer
+the vectoriser is forced to notice that "cat" and
+"kitten" fit in similar blanks — and gradually pushes their vectors closer
 together.
 :::
 
-## Takeaway — Word Vectorization
+## Summary
 
-- Words become **vectors**: short lists of numbers
-- Similar meaning → similar vectors → nearby points in space
-- This turns "understanding language" into "doing geometry" — something
-  computers are very good at
-- But this only handles **individual words**. What about whole sentences?
+- words become **vectors** in a hyperspace
+- similar meaning → similar vectors → nearby points in space
+- word meanings are now a geometric fact
+- a v. only handles **individual words,** what about whole sentences?
+
+- examples:  **Word2Vec** and **GloVe**
 
 ---
 
@@ -130,14 +131,13 @@ together.
 
 ## From words to sentences
 
-Once each word is a vector, a new question appears:
+After word vectorization, a new topic:
 
-> How does a model read a **whole sentence** and produce a **whole
+> How can a software process a **whole sentence** and produce a **whole
 > different sentence** — like translating English to Italian, or
 > summarizing a paragraph?
 
-The answer that dominated the field for several years: the
-**encoder–decoder** architecture.
+the **encoder–decoder** architecture
 
 ## The two halves
 
@@ -155,63 +155,53 @@ each new word informed by the ones it already produced.
 :::
 :::
 
-## The architecture
+## The E/D architecture
 
 ![](imgs/encoder_decoder_diagram.svg){fig-align="center" width="100%"}
 
+
 ## The context vector
 
-Everything the encoder learns about the input sentence gets squeezed into
-**one fixed-size vector** — often called the **context vector** or
-"thought vector."
+Everything the encoder learns about the input sentence is mapped into a
+ fixed-size vector — often called the **context vector** or "thought vector."
 
-- Think of it as the encoder's best attempt at a **summary** of the whole
+- the encoder *summarises* the whole sentence, including its order, into the context vector.
   sentence
-- The decoder never sees the original words again — only this summary
 
-::: {.fragment}
-This is elegant... but it is also the architecture's biggest weakness.
-:::
+- The decoder never sees the original words again — only the context vector
 
-## The bottleneck problem
+- the context vector is a representation that is *abstract* from both Italian and English
+
+- limitation: the decoder has no access to the original words/sentence
+
+## The bottleneck effect
+
+- a short sentence is likely to described a single concept: E/D is able to recognise and translate it
+
+- short sentences carry too much information for the fixed-size context vector
+
+- encoder–decoder translation quality drops as sentences got longer
 
 Imagine reading a 40-word sentence, then closing the book and having to
 translate it from memory of **one single mental snapshot**.
 
-::: {.fragment}
-- Short sentences: fine
-- Long sentences: information gets lost — the summary is simply too small
-  to hold everything
-:::
-
-::: {.fragment}
-This is exactly what researchers observed: encoder–decoder translation
-quality dropped sharply as sentences got longer.
-:::
-
-## Takeaway — Encoder / Decoder
-
-- **Encoder**: reads input → produces a compressed summary
-- **Decoder**: unpacks that summary into the output, word by word
-- Works well for short sequences
-- Struggles with long ones — because everything is forced through a single
-  fixed-size bottleneck
-- We need a way for the decoder to **look back** at specific input words
-  instead of relying only on the summary
+What if the D. would **look back** at specific input words to adjust its translation?
 
 ---
 
-# 3. The Attention Mechanism {background-color="#C79A2E"}
+# The Attention Mechanism {background-color="#C79A2E"}
 
 ## The fix: stop forcing everything through one summary
 
 Instead of relying only on the final context vector, **attention** lets the
 decoder look back at *every* word of the input, every time it generates a
-new output word — and decide **which ones matter right now**.
+new output word — and decide **which ones matter most for translation at hand**
+
+- such information might come from words that are distant from the sentence being translated, or even past the sentence
 
 ::: {.fragment}
-Analogy: instead of translating from a single memorized summary, you keep
-the original sentence in front of you and glance back at the relevant part
+Analogy: instead of translating from a single memorized summary, keep
+the original sentence in front and glance back at the relevant part
 each time you write the next word.
 :::
 
@@ -231,9 +221,9 @@ For every word the decoder is about to produce, attention:
 
 ![](imgs/attention_flow.svg){fig-align="center" width="100%"}
 
-When producing the Italian word for "sat," the model pays most attention
+To translate "sat," the attention model pays most attention
 to "sat" in the input — with a little attention on "cat" for grammatical
-agreement, and almost none on the rest.
+agreement, and almost none on the rest
 
 ## Seeing the weights directly
 
@@ -242,35 +232,29 @@ column per input word, brightness = how much attention was paid.
 
 ![](imgs/attention_heatmap.png){fig-align="center" width="62%"}
 
-Notice the pattern roughly follows the diagonal — each output word mostly
-attends to the corresponding input word — but not always: word order can
-differ between languages.
 
-## Why this matters
+A fixed, word-by-word translation would correspond to the unit ('eye') matrix
+
+## Observations
 
 - **No more single bottleneck** — the decoder has access to the *entire*
-  input at every step, not just one fixed summary
-- **Much better on long sentences** — relevant information doesn't have to
-  survive a single compression step
-- **Interpretability bonus** — attention weights give a rough picture of
-  *what the model is "looking at"*, which is part of why they became
-  popular for understanding model behavior
+  input at every step, not just the fixed summary (context) vector
+- **Much better on long sentences** — relevant words that are distant in the text are not compressed into the context vector
+- **Interpretability** — attention weights give a rough picture of
+  *what the model is "looking at"*
 
-::: {.fragment}
-Attention turned out to be so useful that researchers eventually asked:
-*"What if attention is all we need — no encoder/decoder recurrence
-required?"* That question led to the **Transformer** architecture, which
-powers most modern language models — a story for another day.
-:::
+## Attention is all you need
 
-## Takeaway — Attention
-
-- Lets a model **selectively focus** on the most relevant parts of the
+- for large-scale attention training, encoder/decoder is not needed anymore 
+- a. **selectively focus** on the most relevant parts of the
   input for each part of the output
 - Solves the bottleneck problem of plain encoder–decoder models
-- The foundation underneath modern large language models
+- less intriguing than E/D but more interpretable
 
 ---
+
+[![](./imgs/attention-article.jpg)](https://arxiv.org/abs/1706.03762)
+
 
 # Putting it all together {background-color="#2E3A46"}
 
@@ -284,25 +268,13 @@ powers most modern language models — a story for another day.
 
 ## In one picture
 
-1. **Vectorization** gives words meaningful numbers
-2. **Encoder/decoder** strings those numbers into full sentences, in and
-   out
-3. **Attention** lets the decoder focus on the right words at the right
-   time, instead of relying on one compressed summary
+1. **Vectorization** embeds words into hyper-dimensional spaces: Geometry applies
+2. **Encoder/decoder** sentences are mapped into/out of a latent space
+
+3. **Attention** lets the decoder inspect the lexical context, both before and after the word in consideration
 
 ::: {.fragment}
-Together, these three ideas are the conceptual backbone behind machine
-translation, chatbots, and most of what people currently call "AI language
-models."
+Chatbots, and most "AI language models." are attention
 :::
 
-## Questions?
 
-Thank you!
-
-::: {.fragment}
-*Next steps, if you're curious:* look up **Word2Vec**, **the original
-encoder–decoder translation paper (Sutskever et al., 2014)**, and
-**"Attention Is All You Need" (Vaswani et al., 2017)** — the paper that
-introduced the Transformer.
-:::
